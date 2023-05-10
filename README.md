@@ -1,2 +1,2 @@
 # SyliusAdminOAuthPlugin
-SynoliaOAuthPlugin
+SyliusAdminOAuthPlugin
