@@ -1,0 +1,12 @@
+/vendor/
+/var/
+/composer.lock
+/node_modules/
+
+/.phpunit.result.cache
+/phpunit.xml
+
+/tests/Application/
+/install/Application/*.local
+
+/.idea/
