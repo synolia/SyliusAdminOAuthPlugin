@@ -1,0 +1,44 @@
+grumphp:
+    ascii:
+        failed: ~
+        succeeded: ~
+    tasks:
+        composer:
+            no_check_all: true
+        git_blacklist:
+            keywords:
+                - 'var_dump'
+                - 'dump\('
+                - 'print_r'
+                - 'die\('
+                - 'console\.'
+            triggered_by: [php, twig, js]
+        jsonlint:
+            detect_key_conflicts: true
+        phplint:
+            exclude: ['vendor']
+            triggered_by: ['php']
+        phpmd:
+            ruleset: ['dev/.php_md.xml']
+        phpstan:
+            level: ~
+            configuration: 'dev/phpstan.neon'
+            use_grumphp_paths: false
+        yamllint:
+            parse_custom_tags: true
+        phpcs:
+            standard: "dev"
+            warning_severity: 0
+            whitelist_patterns:
+                - "src"
+                - "tests"
+        phpcsfixer2:
+            config: 'dev/.php-cs-fixer.php'
+            verbose: true
+            diff: true
+            triggered_by: [ 'php' ]
+        phpmnd:
+            directory: src
+        twigcs:
+            path: 'src/'
+            severity: error
