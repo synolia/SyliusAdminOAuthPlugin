@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 [![License](https://img.shields.io/packagist/l/synolia/sylius-admin-oauth-plugin.svg)](https://github.com/synolia/SyliusAdminOauthPlugin/blob/master/LICENSE)
 ![Tests](https://github.com/synolia/SyliusAdminOauthPlugin/workflows/CI/badge.svg?branch=master)
 [![Version](https://img.shields.io/packagist/v/synolia/sylius-admin-oauth-plugin.svg)](https://packagist.org/packages/synolia/sylius-admin-oauth-plugin)
@@ -20,10 +19,10 @@
 
 ## Requirements
 
-|        | Version    |
-|:-------|:-----------|
-| PHP    | ^7.4, ^8.0 |
-| Sylius | ^1.9       |
+|        | Version |
+|:-------|:--------|
+| PHP    | ^8.0    |
+| Sylius | ^1.12   |
 
 ## Installation
 

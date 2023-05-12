@@ -5,13 +5,6 @@ grumphp:
     tasks:
         composer:
             no_check_all: true
-        git_blacklist:
-            keywords:
-                - 'var_dump'
-                - 'dump\('
-                - 'print_r'
-                - 'die\('
-                - 'console\.'
             triggered_by: [php, twig, js]
         jsonlint:
             detect_key_conflicts: true

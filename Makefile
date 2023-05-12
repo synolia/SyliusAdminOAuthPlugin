@@ -7,7 +7,7 @@ COMPOSER=cd tests/Application && composer
 YARN=cd tests/Application && yarn
 
 SYLIUS_VERSION=1.12.0
-SYMFONY_VERSION=6.1
+SYMFONY_VERSION=6.2
 PHP_VERSION=8.1
 PLUGIN_NAME=synolia/sylius-admin-oauth-plugin
 
