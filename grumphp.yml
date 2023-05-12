@@ -5,7 +5,6 @@ grumphp:
     tasks:
         composer:
             no_check_all: true
-            triggered_by: [php, twig, js]
         jsonlint:
             detect_key_conflicts: true
         phplint:
