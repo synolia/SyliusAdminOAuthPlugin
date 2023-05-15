@@ -19,10 +19,10 @@
 
 ## Requirements
 
-|        | Version |
-|:-------|:--------|
-| PHP    | ^8.0    |
-| Sylius | ^1.12   |
+|        | Version  |
+|:-------|:---------|
+| PHP    | ^8.0     |
+| Sylius | ^1.10    |
 
 ## Installation
 
@@ -42,6 +42,3 @@ This library is under the [EUPL-1.2 license](LICENSE).
 ## Credits
 
 Developed by [Synolia](https://synolia.com/).
-=======
-# SyliusAdminOAuthPlugin
-SyliusAdminOAuthPlugin

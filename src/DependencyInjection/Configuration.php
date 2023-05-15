@@ -11,7 +11,7 @@ final class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('synolia_sylius_admin_oauth');
+        $treeBuilder = new TreeBuilder('synolia_sylius_admin_oauth_plugin');
         $rootNode = $treeBuilder->getRootNode();
 
         return $treeBuilder;

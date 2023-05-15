@@ -7,7 +7,7 @@ COMPOSER=cd tests/Application && composer
 YARN=cd tests/Application && yarn
 
 SYLIUS_VERSION=1.12.0
-SYMFONY_VERSION=6.2
+SYMFONY_VERSION=6.1
 PHP_VERSION=8.1
 PLUGIN_NAME=synolia/sylius-admin-oauth-plugin
 
@@ -49,8 +49,8 @@ else
 endif
 
 update-dependencies:
-	${COMPOSER} config extra.symfony.require "^${SYMFONY_VERSION}"
-	${COMPOSER} require symfony/asset:^${SYMFONY_VERSION} --no-scripts --no-update
+	${COMPOSER} config extra.symfony.require "~${SYMFONY_VERSION}"
+	${COMPOSER} require symfony/asset:~${SYMFONY_VERSION} --no-scripts --no-update
 	${COMPOSER} update --no-progress -n
 
 install-plugin:
@@ -59,10 +59,17 @@ install-plugin:
 	${COMPOSER} config minimum-stability "dev"
 	${COMPOSER} config prefer-stable true
 	${COMPOSER} req ${PLUGIN_NAME}:* --prefer-source --no-scripts
-	cp -r install/Application tests
+	if [ -d "install/Application" ]; then \
+		cp -r install/Application tests
+	fi
+	if [ -d "instests/data" ]; then \
+		cp -r tests/data/* ${TEST_DIRECTORY}/
+	fi
 
 install-sylius:
-	${CONSOLE} sylius:install -n -s default
+	${CONSOLE} doctrine:database:create --if-not-exists
+	${CONSOLE} doctrine:migrations:migrate -n
+	${CONSOLE} sylius:fixtures:load akeneo -n
 	${YARN} install
 	${YARN} build
 	${CONSOLE} cache:clear
