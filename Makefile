@@ -59,20 +59,21 @@ install-plugin:
 	${COMPOSER} config minimum-stability "dev"
 	${COMPOSER} config prefer-stable true
 	${COMPOSER} req ${PLUGIN_NAME}:* --prefer-source --no-scripts
-	if [ -d "install/Application" ]; then \
-		cp -r install/Application tests
-	fi
-	if [ -d "instests/data" ]; then \
-		cp -r tests/data/* ${TEST_DIRECTORY}/
-	fi
+ifneq ("$(wildcard install/Application)","")
+	cp -r install/Application tests
+endif
+ifneq ("$(wildcard tests/data)","")
+	cp -r tests/data/* ${TEST_DIRECTORY}/
+endif
 
 install-sylius:
 	${CONSOLE} doctrine:database:create --if-not-exists
 	${CONSOLE} doctrine:migrations:migrate -n
-	${CONSOLE} sylius:fixtures:load akeneo -n
+	${CONSOLE} sylius:fixtures:load default -n
 	${YARN} install
 	${YARN} build
 	${CONSOLE} cache:clear
+
 
 phpunit-configure:
 	cp phpunit.xml.dist ${TEST_DIRECTORY}/phpunit.xml
