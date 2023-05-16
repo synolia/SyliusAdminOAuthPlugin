@@ -1,0 +1,5 @@
+sylius_paypal_webhook:
+    resource: "@SyliusPayPalPlugin/Resources/config/webhook_routing.yaml"
+connect_google:
+    path: /connect/google
+    controller: App\Controller\GoogleController::connectAction
