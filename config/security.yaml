@@ -1,0 +1,9 @@
+security:
+    enable_authenticator_manager: true
+    firewalls:
+        main:
+            custom_authenticators:
+                - Synolia\SyliusAdminOauthPlugin\Security\GoogleAuthenticator
+    access_control:
+        - { path: "%sylius.security.admin_regex%/connect/google", role: PUBLIC_ACCESS }
+        - { path: "%sylius.security.admin_regex%/google/check", role: PUBLIC_ACCESS }

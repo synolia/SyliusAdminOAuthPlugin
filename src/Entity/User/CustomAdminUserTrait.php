@@ -2,24 +2,21 @@
 
 declare(strict_types=1);
 
-//namespace Synolia\SyliusAdminOauthPlugin\Entity\User;
-namespace App\Entity\User;
-
+namespace Synolia\SyliusAdminOauthPlugin\Entity\User;
 
 use Doctrine\ORM\Mapping as ORM;
-use Sylius\Component\Core\Model\AdminUser as BaseAdminUser;
+use Doctrine\ORM\Mapping\Column;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="sylius_admin_user")
- */
-#[ORM\Entity]
-#[ORM\Table(name: "sylius_admin_user")]
-class CustomAdminUser extends BaseAdminUser
+trait CustomAdminUserTrait
 {
-    #[ORM\Column(type: 'string')]
+    /**
+     * @Column(name="google_id", type="string", nullable=true)
+     */
     private ?string $googleId = null;
-    #[ORM\Column(type: 'string')]
+
+    /**
+     * @Column(name="hosted_domain", type="string", nullable=true)
+     */
     private ?string $hostedDomain = null;
 
     /**
@@ -32,13 +29,10 @@ class CustomAdminUser extends BaseAdminUser
 
     /**
      * @param string|null $googleId
-     * @return $this
      */
-    public function setGoogleId(?string $googleId): self
+    public function setGoogleId(?string $googleId): void
     {
         $this->googleId = $googleId;
-
-        return $this;
     }
 
     /**
@@ -50,10 +44,8 @@ class CustomAdminUser extends BaseAdminUser
     }
 
 
-    public function setHostedDomain(?string $hostedDomain): self
+    public function setHostedDomain(?string $hostedDomain): void
     {
         $this->hostedDomain = $hostedDomain;
-
-        return $this;
     }
 }

@@ -1,0 +1,5 @@
+sylius_ui:
+    events:
+        sylius.admin.login.form.content:
+            blocks:
+                my_block_name: 'google_auth_button.html.twig'

@@ -1,0 +1,3 @@
+twig:
+    globals:
+        google_client_id: '%env(OAUTH_GOOGLE_CLIENT_ID)%'
