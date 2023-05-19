@@ -8,3 +8,6 @@ parameters:
         - ../vendor/autoload.php
     excludePaths:
         - '../src/DependencyInjection/Configuration.php'
+    scanFiles:
+      - '../install/Application/src/Entity/User/AdminUser.php'
+    treatPhpDocTypesAsCertain: false
