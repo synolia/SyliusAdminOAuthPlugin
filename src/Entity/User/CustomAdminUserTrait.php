@@ -21,32 +21,27 @@ trait CustomAdminUserTrait
     #[ORM\Column(type: Types::STRING, nullable: true)]
     private ?string $hostedDomain = null;
 
-    /**
-     * @return string|null
-     */
     public function getGoogleId(): ?string
     {
         return $this->googleId;
     }
 
-    /**
-     * @param string|null $googleId
-     */
-    public function setGoogleId(?string $googleId): void
+    public function setGoogleId(?string $googleId): self
     {
         $this->googleId = $googleId;
+
+        return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getHostedDomain(): ?string
     {
         return $this->hostedDomain;
     }
 
-    public function setHostedDomain(?string $hostedDomain): void
+    public function setHostedDomain(?string $hostedDomain): self
     {
         $this->hostedDomain = $hostedDomain;
+
+        return $this;
     }
 }
