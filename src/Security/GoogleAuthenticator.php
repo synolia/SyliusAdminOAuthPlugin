@@ -1,12 +1,15 @@
 <?php
-# src/Security/GoogleAuthenticator.php
-//namespace Synolia\SyliusAdminOauthPlugin\Security;
-namespace App\Security;
 
-use League\OAuth2\Client\Provider\GoogleUser;
+namespace Synolia\SyliusAdminOauthPlugin\Security;
+
+use App\Entity\User\AdminUser;
+use App\Factory\UserFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\OAuth2Authenticator;
+use League\OAuth2\Client\Provider\GoogleUser;
+use Sylius\Bundle\CoreBundle\Doctrine\ORM\UserRepository;
+use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,11 +19,10 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
-use App\Entity\User\AdminUser;
-use App\Factory\UserFactory;
-use App\Factory\UserOauthFactory;
+use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface;
+use Synolia\SyliusAdminOauthPlugin\Factory\UserOauthFactory;
 
-class GoogleAuthenticator extends OAuth2Authenticator
+class GoogleAuthenticator extends OAuth2Authenticator implements AuthenticationEntrypointInterface
 {
     public function __construct(
         private readonly ClientRegistry         $clientRegistry,
@@ -38,32 +40,40 @@ class GoogleAuthenticator extends OAuth2Authenticator
 
     public function authenticate(Request $request): Passport
     {
-        $client = $this->clientRegistry->getClient('google');
+        $client = $this->clientRegistry->getClient('google_main');
         $accessToken = $this->fetchAccessToken($client);
+        /** @var GoogleUser $googleUser */
+        $googleUser = $client->fetchUserFromToken($accessToken);
+        $email = $googleUser->getEmail();
 
-        return new SelfValidatingPassport(
-            new UserBadge($accessToken->getToken(), function () use ($accessToken, $client) {
-                /** @var GoogleUser $googleUser */
-                $googleUser = $client->fetchUserFromToken($accessToken);
+//        if (str_ends_with("@synolia.com", $email)){
+            return new SelfValidatingPassport(
+                new UserBadge($accessToken->getToken(), function() use ($googleUser, $email, $accessToken, $client) {
+                    /** @var UserRepository $userRepo */
+                    $userRepo = $this->entityManager->getRepository(AdminUser::class);
 
-                // have they logged in with Google before? Easy!
-                $existingUser = $this->entityManager->getRepository(AdminUser::class)->findOneBy([
-                    'googleId' => $googleUser->getId()
-                ]);
+                    $existingUser = $userRepo->findOneBy(['googleId' => $googleUser->getId()]);
 
-                if (!$existingUser) {
-                    $user       = UserFactory::createByGoogleAccount($googleUser);
-                    $oauthUser  = UserOauthFactory::create($user);
+                    // 1) have they logged in with Google before? Easy!
+                    if ($existingUser) {
+                        return $existingUser;
+                    }
+                    // 2) do we have a matching user by email?
+                    $user = $this->entityManager->getRepository(AdminUser::class)->findOneBy(['email' => $email]);
 
-                    $this->entityManager->persist($existingUser);
-                    $this->entityManager->persist($oauthUser);
-                }
+                    // 3) register google user
+                    if (!$user){
+                        $user = UserFactory::createByGoogleAccount($googleUser);
+                        //                    $oauthUser = UserOauthFactory::create($user);
+                        $this->entityManager->persist($user);
+//                    $this->entityManager->persist($oauthUser);
+                        $this->entityManager->flush();
+                    }
 
-                $this->entityManager->flush();
-
-                return $existingUser;
-            })
-        );
+                    return $user;
+                })
+            );
+//        }
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
@@ -82,6 +92,18 @@ class GoogleAuthenticator extends OAuth2Authenticator
         $message = strtr($exception->getMessageKey(), $exception->getMessageData());
 
         return new Response($message, Response::HTTP_FORBIDDEN);
+    }
+
+    /**
+     * Called when authentication is needed, but it's not sent.
+     * This redirects to the 'login'.
+     */
+    public function start(Request $request, AuthenticationException $authException = null): Response
+    {
+        return new RedirectResponse(
+            '/admin/connect/google', // might be the site, where users choose their oauth provider
+            Response::HTTP_TEMPORARY_REDIRECT
+        );
     }
 
 //    public function start(Request $request, AuthenticationException $authException = null): Response

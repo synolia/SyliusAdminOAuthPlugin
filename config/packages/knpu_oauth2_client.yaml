@@ -5,9 +5,8 @@ knpu_oauth2_client:
             type: google
             client_id: '%env(OAUTH_GOOGLE_CLIENT_ID)%'
             client_secret: '%env(OAUTH_GOOGLE_CLIENT_SECRET)%'
-            redirect_route: connect_google_check
-            redirect_params: { }
-            scope: "email"
+            redirect_route: 'connect_google_check'
+            redirect_params: {}
             # Optional value for sending access_type parameter. More detail: https://developers.google.com/identity/protocols/OpenIDConnect#authenticationuriparameters
             # access_type: null
             # Optional value for sending hd parameter. More detail: https://developers.google.com/identity/protocols/OpenIDConnect#hd-param
