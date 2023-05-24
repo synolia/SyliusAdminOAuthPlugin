@@ -6,10 +6,11 @@ namespace Synolia\SyliusAdminOauthPlugin\Factory;
 
 use App\Entity\User\AdminUser;
 use League\OAuth2\Client\Provider\GoogleUser;
+use Sylius\Component\Core\Model\AdminUserInterface;
 
 final class AdminUserFactory
 {
-    public static function createByGoogleAccount(GoogleUser $googleUser): AdminUser
+    public static function createByGoogleAccount(GoogleUser $googleUser): AdminUserInterface
     {
         $user = new AdminUser();
         $user->setEmail($googleUser->getEmail());

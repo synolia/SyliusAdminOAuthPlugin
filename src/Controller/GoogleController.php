@@ -8,27 +8,33 @@ use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Synolia\SyliusAdminOauthPlugin\Security\GoogleAuthenticator;
 
 final class GoogleController extends AbstractController
 {
-    #[Route('/connect/google', name: 'connect_google')]
-    public function connectAction(ClientRegistry $clientRegistry): RedirectResponse
+    public function __construct(
+        private ClientRegistry $clientRegistry,
+        private GoogleAuthenticator $authenticator,
+    )
     {
-        return $clientRegistry->getClient('google_main')->redirect([], []);
     }
 
-    /**
-     * After going to google, you're redirected back here
-     * because this is the "redirect_route" you configured
-     * in config/packages/knpu_oauth2_client.yaml
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    #[Route('/connect/google/check', name: 'connect_google_check')]
-    public function connectCheckAction(Request $request): void
+//    #[Route('/connect/google', name: 'connect_google')]
+    public function connectAction(): RedirectResponse
     {
-        // ** if you want to *authenticate* the user, then
-        // leave this method blank and create a Guard authenticator
+        return $this->clientRegistry->getClient('google_main')->redirect([], []);
+    }
+
+//    #[Route('/connect/google/check', name: 'connect_google_check')]
+    public function connectCheckAction(Request $request)
+    {
+        try {
+            $passport = $this->authenticator->authenticate($request);
+            $user = ($passport->getUser());
+        } catch (\Exception $e) {
+            $this->addFlash("danger", $e->getMessage());
+        }
+
+        return $this->redirectToRoute('sylius_admin_dashboard');
     }
 }
