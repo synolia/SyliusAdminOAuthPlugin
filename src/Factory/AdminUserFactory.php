@@ -15,6 +15,7 @@ final class AdminUserFactory
         $user->setEmail($googleUser->getEmail());
         $user->setEmailCanonical($googleUser->getEmail());
         $user->setUsername($googleUser->getName());
+        $user->setGoogleId($googleUser->getId());
         $user->setFirstName($googleUser->getFirstName());
         $user->setLastName($googleUser->getLastName());
         $user->setHostedDomain($googleUser->getHostedDomain());
@@ -24,6 +25,8 @@ final class AdminUserFactory
         /** @var string|null $googleId */
         $googleId = $googleUser->getId();
         $user->setGoogleId($googleId);
+        $user->setCreatedAt(new \DateTimeImmutable("now"));
+        $user->setLocaleCode($googleUser->getLocale());
 
         return $user;
     }

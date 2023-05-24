@@ -1,9 +1,9 @@
 connect_google:
-    path: /connect/google
+    path: connect/google
     defaults:
-        _controller: Synolia\SyliusAdminOauthPlugin\Controller\GoogleController::switchAction
+        _controller: Synolia\SyliusAdminOauthPlugin\Controller\GoogleController::connectAction
 
 connect_google_check:
-    path: /connect/google/check
+    path: connect/google/check
     defaults:
         _controller: Synolia\SyliusAdminOauthPlugin\Controller\GoogleController::connectCheckAction
