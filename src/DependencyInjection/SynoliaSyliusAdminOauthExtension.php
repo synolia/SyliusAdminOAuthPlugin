@@ -16,7 +16,7 @@ final class SynoliaSyliusAdminOauthExtension extends AbstractResourceExtension i
     use PrependDoctrineMigrationsTrait;
 
     /**
-     * @param array<mixed> $configs
+     * @param array $configs
      * @param ContainerBuilder $container
      *
      * @throws \Exception
