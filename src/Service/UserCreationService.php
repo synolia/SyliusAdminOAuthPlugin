@@ -17,8 +17,8 @@ class UserCreationService
         private ClientRegistry $clientRegistry,
         private EntityManagerInterface $entityManager,
     ){}
-
-    public function createByGoogleAccount(GoogleUser $googleUser){
+    public function createByGoogleAccount(GoogleUser $googleUser):AdminUser
+    {
         /** @var UserRepository $userRepo */
         $userRepo = $this->entityManager->getRepository(AdminUser::class);
         $existingUser = $userRepo->findOneBy(['googleId' => $googleUser->getId()]);
