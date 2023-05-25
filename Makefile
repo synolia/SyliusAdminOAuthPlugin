@@ -74,7 +74,6 @@ install-sylius:
 	${YARN} build
 	${CONSOLE} cache:clear
 
-
 phpunit-configure:
 	cp phpunit.xml.dist ${TEST_DIRECTORY}/phpunit.xml
 
