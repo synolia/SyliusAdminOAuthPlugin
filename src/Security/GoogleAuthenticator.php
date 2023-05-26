@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Synolia\SyliusAdminOauthPlugin\Security;
 
-use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\OAuth2Authenticator;
 use League\OAuth2\Client\Provider\GoogleUser;
@@ -24,7 +23,6 @@ final class GoogleAuthenticator extends OAuth2Authenticator
     public function __construct(
         private ClientRegistry $clientRegistry,
         private RouterInterface $router,
-        private EntityManagerInterface $entityManager,
         private UserCreationService $userCreationService,
     ) {
     }
@@ -63,7 +61,7 @@ final class GoogleAuthenticator extends OAuth2Authenticator
         );
 
         // or, on success, let the request continue to be handled by the controller
-        //return null;
+        // return null;
     }
 
     /**
