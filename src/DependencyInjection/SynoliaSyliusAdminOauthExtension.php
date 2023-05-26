@@ -15,11 +15,15 @@ final class SynoliaSyliusAdminOauthExtension extends AbstractResourceExtension i
 {
     use PrependDoctrineMigrationsTrait;
 
+    /**
+     * @param array $configs
+     * @param ContainerBuilder $container
+     *
+     * @throws \Exception
+     */
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $config = $this->processConfiguration($this->getConfiguration([], $container), $configs);
-        $loader = new PhpFileLoader($container, new FileLocator(dirname(__DIR__, 2) . '/config'));
-
+        $loader = new PhpFileLoader($container, new FileLocator(\dirname(__DIR__, 2) . '/config'));
         $loader->load('services.php');
     }
 
