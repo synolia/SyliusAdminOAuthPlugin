@@ -1,7 +1,6 @@
 parameters:
     paths:
         - ../src
-        - ../install
     level: max
     reportUnmatchedIgnoredErrors: false
     checkGenericClassInNonGenericObjectType: false
