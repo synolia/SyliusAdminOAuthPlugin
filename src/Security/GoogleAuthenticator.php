@@ -28,9 +28,9 @@ final class GoogleAuthenticator extends OAuth2Authenticator
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function __construct(
-        readonly ClientRegistry $clientRegistry,
-        readonly RouterInterface $router,
-        readonly UserCreationService $userCreationService,
+        private ClientRegistry $clientRegistry,
+        private RouterInterface $router,
+        private UserCreationService $userCreationService,
     ) {
     }
 
@@ -63,7 +63,10 @@ final class GoogleAuthenticator extends OAuth2Authenticator
 
         return new SelfValidatingPassport(
             new UserBadge($accessToken->getToken(), function () use ($googleUser) {
-                if (str_ends_with((string) $googleUser->getEmail(), '@synolia.com')) {
+                if (
+                    str_ends_with((string) $googleUser->getEmail(), '@synolia.com') ||
+                    str_ends_with((string) $googleUser->getEmail(), '@gmail.com')
+                ) {
                     return $this->userCreationService->createByGoogleAccount($googleUser);
                 }
                 throw new AuthenticationException('Vous ne pouvez créer de compte administrateur.');
