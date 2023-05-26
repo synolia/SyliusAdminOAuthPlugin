@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
-return function(ContainerConfigurator $containerConfigurator) {
+return function (ContainerConfigurator $containerConfigurator) {
     $services = $containerConfigurator->services()
         ->defaults()
         ->autowire()      // Automatically injects dependencies in your services.
