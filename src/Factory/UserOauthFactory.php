@@ -1,22 +1,21 @@
 <?php
 
-//namespace Synolia\SyliusAdminOauthPlugin\Factory;
+declare(strict_types=1);
+
 namespace Synolia\SyliusAdminOauthPlugin\Factory;
 
-use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Sylius\Component\Core\Model\AdminUserInterface;
-use Sylius\Component\User\Model\UserInterface;
 use Sylius\Component\User\Model\UserOAuth;
 
-class UserOauthFactory
+final class UserOauthFactory
 {
     public static function create(AdminUserInterface $user): UserOAuth
     {
         $oauthUser = new UserOAuth();
         $oauthUser->setUser($user);
         $oauthUser->setProvider('google_main');
-        $oauthUser->setIdentifier($user->getUserIdentifier());
-//        $oauthUser->setAccessToken($user->getOAuthAccount('google_main')->getAccessToken());
+        $oauthUser->setIdentifier($user->getUserIdentifier()); /** @phpstan-ignore-line */
+        //        $oauthUser->setAccessToken($user->getOAuthAccount('google_main')->getAccessToken());
         return $oauthUser;
     }
 }
