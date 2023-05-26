@@ -23,7 +23,7 @@ use Synolia\SyliusAdminOauthPlugin\Service\UserCreationService;
 use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface;
 use Synolia\SyliusAdminOauthPlugin\Factory\AdminUserFactory;
 
-class GoogleAuthenticator extends OAuth2Authenticator
+final class GoogleAuthenticator extends OAuth2Authenticator
 {
     public function __construct(
         private ClientRegistry $clientRegistry,
@@ -36,7 +36,7 @@ class GoogleAuthenticator extends OAuth2Authenticator
     public function supports(Request $request): ?bool
     {
         // continue ONLY if the current ROUTE matches the check ROUTE
-        return $request->attributes->get('_route') === 'connect_google_check';
+        return 'connect_google_check' === $request->attributes->get('_route');
     }
 
     public function authenticate(Request $request): Passport
@@ -45,16 +45,13 @@ class GoogleAuthenticator extends OAuth2Authenticator
         $accessToken = $this->fetchAccessToken($client);
         /** @var GoogleUser $googleUser */
         $googleUser = $client->fetchUserFromToken($accessToken);
-        $email = $googleUser->getEmail();
 
         return new SelfValidatingPassport(
-            new UserBadge($accessToken->getToken(), function () use ($googleUser, $email, $accessToken, $client) {
-                if (str_ends_with($email, "@synolia.com")) {
-                   return $this->userCreationService->createByGoogleAccount($googleUser);
+            new UserBadge($accessToken->getToken(), function () use ($googleUser) {
+                if (str_ends_with((string) $googleUser->getEmail(), '@synolia.com')) {
+                    return $this->userCreationService->createByGoogleAccount($googleUser);
                 }
-                else{
-                    throw new AuthenticationException("Vous ne pouvez créer de compte administrateur.");
-                }
+                throw new AuthenticationException('Vous ne pouvez créer de compte administrateur.');
             })
         );
     }
