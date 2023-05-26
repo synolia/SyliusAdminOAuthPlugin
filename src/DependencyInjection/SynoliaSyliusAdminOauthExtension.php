@@ -16,10 +16,12 @@ final class SynoliaSyliusAdminOauthExtension extends AbstractResourceExtension i
     use PrependDoctrineMigrationsTrait;
 
     /**
-     * @param array $configs
+     * @param array<mixed> $configs
      * @param ContainerBuilder $container
      *
      * @throws \Exception
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function load(array $configs, ContainerBuilder $container): void
     {
@@ -42,6 +44,9 @@ final class SynoliaSyliusAdminOauthExtension extends AbstractResourceExtension i
         return '@SynoliaSyliusAdminOauthPlugin/migrations';
     }
 
+    /**
+     * @return array<string>
+     */
     protected function getNamespacesOfMigrationsExecutedBefore(): array
     {
         return [
