@@ -35,7 +35,7 @@
     OAUTH_GOOGLE_CLIENT_ID=
     OAUTH_GOOGLE_CLIENT_SECRET=
     ```
-3. Add following lines into your security.yaml file (access_control paths must be on top of the others) :
+3. In your security.yaml, add a custom authenticator in your admin firewall and put 2 more access_control paths wich must be on top of the others :
     ```yaml script
     security:
       enable_authenticator_manager: true
@@ -49,7 +49,7 @@
         - { path: "%sylius.security.admin_regex%/connect/google/check", role: PUBLIC_ACCESS }
     ```
    
-4. Run migration to give google_id and hosted_domain to your admin user entity :
+4. Run migration added in your Migrations directory to give google_id and hosted_domain to your admin user entity :
    ```shell script
     php bin/console doctrine:migrations:migrate
    ```
