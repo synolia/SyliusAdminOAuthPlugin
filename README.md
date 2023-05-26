@@ -49,14 +49,25 @@
         - { path: "%sylius.security.admin_regex%/connect/google/check", role: PUBLIC_ACCESS }
     ```
 4. Paste it in your config\packages\\_sylius.yaml :
-```yaml script
-   sylius_ui:
-       events:
-           sylius.admin.login.form.content:
-               blocks:
-                  my_block_name: '@SynoliaSyliusAdminOauthPlugin/google_auth_button.html.twig'
-  ```
+    ```yaml script
+       sylius_ui:
+           events:
+               sylius.admin.login.form.content:
+                   blocks:
+                      my_block_name: '@SynoliaSyliusAdminOauthPlugin/google_auth_button.html.twig'
+    ```
+4. Create config/packages/knpu_oauth2_client.yaml :
+    ```yaml script
+       knpu_oauth2_client:
+            clients:
+                google_main:
+                    type: google
+                    client_id: '%env(OAUTH_GOOGLE_CLIENT_ID)%'
+                    client_secret: '%env(OAUTH_GOOGLE_CLIENT_SECRET)%'
+                    redirect_route: 'connect_google_check'
+                    redirect_params: {}
 
+    ```
 
 5. Add this to your App\Entity\AdminUser.php
     ```php script
@@ -64,15 +75,15 @@
    ```
 6. Add the migration file to your doctrine_migrations.yaml :
     ```yaml script
-            migrations_paths:
-                'Synolia\SyliusAdminOauthPlugin\Migrations': '%kernel.project_dir%/vendor/synolia/sylius-admin-oauth-plugin/src/Migrations'
+    migrations_paths:
+        'Synolia\SyliusAdminOauthPlugin\Migrations': '%kernel.project_dir%/vendor/synolia/sylius-admin-oauth-plugin/src/Migrations'
     ```
-6. Run migration added in your Migrations directory to give google_id and hosted_domain to your admin user entity :
+7. Run migration added in your Migrations directory to give google_id and hosted_domain to your admin user entity :
    ```shell script
     php bin/console doctrine:migrations:migrate
    ```
 
-7. You can now connect to your Google account in admin login pannel !
+8. You can now connect to your Google account in admin login pannel !
 
 ## Development
 
