@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Synolia\SyliusAdminOauthPlugin\Entity\User;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Column;
 
 trait CustomAdminUserTrait
@@ -42,7 +41,6 @@ trait CustomAdminUserTrait
     {
         return $this->hostedDomain;
     }
-
 
     public function setHostedDomain(?string $hostedDomain): void
     {
