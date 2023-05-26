@@ -18,7 +18,7 @@ final class UserCreationService
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function __construct(
-        readonly EntityManagerInterface $entityManager,
+        private EntityManagerInterface $entityManager,
     ) {
     }
 
@@ -29,7 +29,7 @@ final class UserCreationService
         /** @var AdminUser $existingUser */
         $existingUser = $userRepo->findOneBy(['googleId' => $googleUser->getId()]);
         // 1) have they logged in with Google before? Easy!
-        if (null !== $existingUser->getCreatedAt()) {
+        if (null !== $existingUser) {
             return $existingUser;
         }
         // 2) do we have a matching user by email?
