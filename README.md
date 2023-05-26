@@ -48,13 +48,31 @@
         - { path: "%sylius.security.admin_regex%/connect/google",       role: PUBLIC_ACCESS }
         - { path: "%sylius.security.admin_regex%/connect/google/check", role: PUBLIC_ACCESS }
     ```
+4. Paste it in your config\packages\\_sylius.yaml :
+```yaml script
+   sylius_ui:
+       events:
+           sylius.admin.login.form.content:
+               blocks:
+                  my_block_name: '@SynoliaSyliusAdminOauthPlugin/google_auth_button.html.twig'
+  ```
 
-4. Run migration added in your Migrations directory to give google_id and hosted_domain to your admin user entity :
+
+5. Add this to your App\Entity\AdminUser.php
+    ```php script
+   use CustomAdminUserTrait;
+   ```
+6. Add the migration file to your doctrine_migrations.yaml :
+    ```yaml script
+            migrations_paths:
+                'Synolia\SyliusAdminOauthPlugin\Migrations': '%kernel.project_dir%/vendor/synolia/sylius-admin-oauth-plugin/src/Migrations'
+    ```
+6. Run migration added in your Migrations directory to give google_id and hosted_domain to your admin user entity :
    ```shell script
     php bin/console doctrine:migrations:migrate
    ```
 
-5. You can now connect to your Google account in admin login pannel !
+7. You can now connect to your Google account in admin login pannel !
 
 ## Development
 

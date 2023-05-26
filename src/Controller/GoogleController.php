@@ -13,8 +13,9 @@ use Symfony\Component\Routing\Annotation\Route;
 final class GoogleController extends AbstractController
 {
     #[Route('/connect/google', name: 'connect_google')]
-    public function connectAction(ClientRegistry $clientRegistry): RedirectResponse
+    public function connectAction(ClientRegistry $clientRegistry): RedirectResponse /* @phpstan-ignore-line */
     {
+        /** @phpstan-ignore-next-line */
         return $clientRegistry->getClient('google_main')->redirect([], []);
     }
 

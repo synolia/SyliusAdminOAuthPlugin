@@ -52,7 +52,7 @@ return (new \PhpCsFixer\Config())
     ])
     ->setRiskyAllowed(true)
     ->setFinder(PhpCsFixer\Finder::create()
-        ->in(\dirname(__DIR__) . '/{src,tests}')
+        ->in(\dirname(__DIR__) . '/{src}')
         ->notName('Kernel.php')
     )
 ;

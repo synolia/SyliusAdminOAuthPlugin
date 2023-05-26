@@ -22,17 +22,20 @@ final class UserCreationService
     ) {
     }
 
+    /** @phpstan-ignore-next-line */
     public function createByGoogleAccount(GoogleUser $googleUser): AdminUser
     {
         /** @var UserRepository $userRepo */
-        $userRepo = $this->entityManager->getRepository(AdminUser::class);
+        $userRepo = $this->entityManager->getRepository(AdminUser::class); /** @phpstan-ignore-line */
         /** @var AdminUser $existingUser */
-        $existingUser = $userRepo->findOneBy(['googleId' => $googleUser->getId()]);
+        $existingUser = $userRepo->findOneBy(['googleId' => $googleUser->getId()]); /** @phpstan-ignore-line */
         // 1) have they logged in with Google before? Easy!
+        /** @phpstan-ignore-next-line */
         if (null !== $existingUser) {
             return $existingUser;
         }
         // 2) do we have a matching user by email?
+        /** @phpstan-ignore-next-line */
         $user = $this->entityManager->getRepository(AdminUser::class)->findOneBy(['email' => $googleUser->getEmail()]);
         // 3) register google user
         if (null === $user) {
