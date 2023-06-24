@@ -32,6 +32,9 @@ jobs:
                         sylius: 1.10.0
                         symfony: 6.2
                     -
+                        sylius: 1.11.0
+                        symfony: 6.2
+                    -
                         php: '8.0'
                         symfony: 6.2
         env:
