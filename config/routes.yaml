@@ -1,9 +1,9 @@
-controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: Synolia\SyliusAdminOauthPlugin\Controller
-    type: attribute
+connect_google:
+    path: /connect/google
+    defaults:
+        _controller: Synolia\SyliusAdminOauthPlugin\Controller\GoogleController::switchAction
 
-kernel:
-    resource: App\Kernel
-    type: attribute
+connect_google_check:
+    path: /connect/google/check
+    defaults:
+        _controller: Synolia\SyliusAdminOauthPlugin\Controller\GoogleController::connectCheckAction
