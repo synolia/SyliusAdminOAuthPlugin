@@ -8,6 +8,7 @@ use App\Entity\User\AdminUser;
 use Doctrine\ORM\EntityManagerInterface;
 use League\OAuth2\Client\Provider\GoogleUser;
 use Sylius\Bundle\CoreBundle\Doctrine\ORM\UserRepository;
+use Sylius\Component\Core\Model\AdminUserInterface;
 use Synolia\SyliusAdminOauthPlugin\Factory\AdminUserFactory;
 
 final class UserCreationService
@@ -17,7 +18,7 @@ final class UserCreationService
     ) {
     }
 
-    public function createByGoogleAccount(GoogleUser $googleUser): AdminUser
+    public function createByGoogleAccount(GoogleUser $googleUser): AdminUserInterface
     {
         /** @var UserRepository $userRepo */
         $userRepo = $this->entityManager->getRepository(AdminUser::class);

@@ -33,26 +33,29 @@ final class GoogleAuthenticator extends OAuth2Authenticator
         return 'connect_google_check' === $request->attributes->get('_route');
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function authenticate(Request $request): Passport
     {
         $client = $this->clientRegistry->getClient('google_main');
         $accessToken = $this->fetchAccessToken($client);
         /** @var GoogleUser $googleUser */
         $googleUser = $client->fetchUserFromToken($accessToken);
-        $email = $googleUser->getEmail();
 
         return new SelfValidatingPassport(
-            new UserBadge($accessToken->getToken(), function () use ($googleUser, $email, $accessToken, $client) {
-                if (str_ends_with($email, "@synolia.com")) {
-                   return $this->userCreationService->createByGoogleAccount($googleUser);
+            new UserBadge($accessToken->getToken(), function () use ($googleUser) {
+                if (str_ends_with((string) $googleUser->getEmail(), '@synolia.com')) {
+                    return $this->userCreationService->createByGoogleAccount($googleUser);
                 }
-                else{
-                    throw new AuthenticationException("Vous ne pouvez créer de compte administrateur.");
-                }
+                throw new AuthenticationException('Vous ne pouvez créer de compte administrateur.');
             })
         );
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         // change "app_dashboard" to some route in your app
