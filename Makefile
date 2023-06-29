@@ -49,8 +49,10 @@ else
 endif
 
 update-dependencies:
-	${COMPOSER} config extra.symfony.require "^${SYMFONY_VERSION}"
-	${COMPOSER} require symfony/asset:^${SYMFONY_VERSION} --no-scripts --no-update
+	${COMPOSER} config extra.symfony.require "~${SYMFONY_VERSION}"
+ifeq ($(shell expr $(SYLIUS_VERSION) \< 1.12), 1)
+	${COMPOSER} require php-http/message-factory --no-scripts --no-update
+endif
 	${COMPOSER} update --no-progress -n
 
 install-plugin:
@@ -59,10 +61,17 @@ install-plugin:
 	${COMPOSER} config minimum-stability "dev"
 	${COMPOSER} config prefer-stable true
 	${COMPOSER} req ${PLUGIN_NAME}:* --prefer-source --no-scripts
+ifneq ("$(wildcard install/Application)","")
 	cp -r install/Application tests
+endif
+ifneq ("$(wildcard tests/data)","")
+	cp -r tests/data/* ${TEST_DIRECTORY}/
+endif
 
 install-sylius:
-	${CONSOLE} sylius:install -n -s default
+	${CONSOLE} doctrine:database:create --if-not-exists
+	${CONSOLE} doctrine:migrations:migrate -n
+	${CONSOLE} sylius:fixtures:load default -n
 	${YARN} install
 	${YARN} build
 	${CONSOLE} cache:clear

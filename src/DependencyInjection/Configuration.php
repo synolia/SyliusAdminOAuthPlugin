@@ -9,14 +9,8 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 final class Configuration implements ConfigurationInterface
 {
-    /**
-     * @psalm-suppress UnusedVariable
-     */
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('synolia_sylius_admin_oauth');
-        $rootNode = $treeBuilder->getRootNode();
-
-        return $treeBuilder;
+        return new TreeBuilder('synolia_sylius_admin_oauth_plugin');
     }
 }
