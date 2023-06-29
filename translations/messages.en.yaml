@@ -1,0 +1,20 @@
+sylius:
+    google_authentication:
+        login_button: Connect with google account.
+        domain_error: Impossible to connect, try again.
+        authentication_failure: Impossible to connect, try again.
+    ui:
+        '': No
+        1: Yes
+        isEnabled: Enabled
+        admin:
+            menu:
+                oauth_submenu_label: Authorized domains
+app:
+    ui:
+        authorized_domains: Authorized domains
+        authorized_domains_subheader: Domain connexion management
+    form:
+        authorized_domains:
+            name: Name
+            authorize: Authorized

@@ -8,3 +8,5 @@ parameters:
         - ../vendor/autoload.php
     excludePaths:
         - '../src/DependencyInjection/Configuration.php'
+        - '../src/Factory/AdminUserFactory.php'
+    treatPhpDocTypesAsCertain: false
