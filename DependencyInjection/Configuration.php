@@ -10,11 +10,11 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 final class Configuration implements ConfigurationInterface
 {
     /**
-     * @SuppressWarnings(UnusedLocalVariable)
+     * @SuppressWarnings(PHPMD)
      */
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('synolia_sylius_admin_oauth_plugin');
+        $treeBuilder = new TreeBuilder('synolia_sylius_admin_oauth');
         $rootNode = $treeBuilder->getRootNode();
 
         return $treeBuilder;

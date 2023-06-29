@@ -10,3 +10,4 @@
 /install/Application/*.local
 
 /.idea/
+/.php-cs-fixer.cache
