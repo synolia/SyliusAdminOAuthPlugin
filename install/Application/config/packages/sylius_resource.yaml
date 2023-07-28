@@ -1,7 +1,0 @@
-sylius_resource:
-    resources:
-        app.authorized_domain:
-            classes:
-                model: Synolia\SyliusAdminOauthPlugin\Entity\Domain\AuthorizedDomain
-                repository: Synolia\SyliusAdminOauthPlugin\Repository\AuthorizedDomainRepository
-                form: Synolia\SyliusAdminOauthPlugin\Form\Type\AuthorizedDomainType
