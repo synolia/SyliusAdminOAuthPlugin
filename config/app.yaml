@@ -1,3 +1,44 @@
+sylius_ui:
+    events:
+        sylius.admin.login.form.content:
+            blocks:
+                google_oauth_button: '@SynoliaSyliusAdminOauthPlugin/google_auth_button.html.twig'
+
+twig:
+    globals:
+        google_client_id: '%env(OAUTH_GOOGLE_CLIENT_ID)%'
+        
+knpu_oauth2_client:
+    clients:
+        google_main:
+            type: google
+            client_id: '%env(OAUTH_GOOGLE_CLIENT_ID)%'
+            client_secret: '%env(OAUTH_GOOGLE_CLIENT_SECRET)%'
+            redirect_route: 'connect_google_check'
+            redirect_params: {}
+
+#TODO: a faire dans le plugin
+sylius_resource:
+    resources:
+        app.authorized_domain:
+            classes:
+                model: Synolia\SyliusAdminOauthPlugin\Entity\Domain\AuthorizedDomain
+                repository: Synolia\SyliusAdminOauthPlugin\Repository\AuthorizedDomainRepository
+                form: Synolia\SyliusAdminOauthPlugin\Form\Type\AuthorizedDomainType
+
+winzou_state_machine:
+    app_authorized_domain:
+        class: "%app.model.authorized_domain.class%"
+        property_path: isEnabled
+        graph: app_authorized_domain
+        state_machine_class: "%sylius.state_machine.class%"
+        states:
+            new: ~
+            enabled: ~
+        transitions:
+            enable:
+                from: [new]
+                to: enabled
 sylius_grid:
     grids:
         app_admin_authorized_domain:
@@ -43,7 +84,7 @@ sylius_grid:
                             class: yellow
                 bulk:
                     delete:
-                        type: delete     
+                        type: delete
             filters:
                 name:
                     type: string
