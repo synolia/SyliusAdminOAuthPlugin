@@ -40,4 +40,9 @@ final class UserCreationService
 
         return $user;
     }
+
+    public function createByMicrosoftAccount(): AdminUser
+    {
+        return new AdminUser();
+    }
 }

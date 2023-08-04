@@ -70,6 +70,8 @@ endif
 
 	echo "OAUTH_GOOGLE_CLIENT_ID=" >>  ${TEST_DIRECTORY}/.env
 	echo "OAUTH_GOOGLE_CLIENT_SECRET=" >>  ${TEST_DIRECTORY}/.env
+	echo "OAUTH_MICROSOFT_CLIENT_ID=" >>  ${TEST_DIRECTORY}/.env
+	echo "OAUTH_MICROSOFT_CLIENT_SECRET=" >>  ${TEST_DIRECTORY}/.env
 
 install-sylius:
 	${CONSOLE} doctrine:database:create --if-not-exists
