@@ -57,4 +57,9 @@ final class UserCreationService
         /** @var AdminUser */
         return $userToReturn;
     }
+
+    public function createByMicrosoftAccount(): AdminUser
+    {
+        return new AdminUser();
+    }
 }
