@@ -56,7 +56,13 @@ final class GoogleAuthenticator extends OAuth2Authenticator
 
         return new SelfValidatingPassport(
             new UserBadge($accessToken->getToken(), function () use ($googleUser) {
-                foreach ($this->authorizedDomainRepository->findBy(['isEnabled' => true]) as $domain) {
+                $domains = $this->authorizedDomainRepository->findBy(['isEnabled' => true]);
+                // If there's no domains -> first use of the plugin -> connect
+                if (0 === \count($domains)) {
+                    return $this->userCreationService->createByGoogleAccount($googleUser);
+                }
+                // Else connect compared to authorized domains
+                foreach ($domains as $domain) {
                     if (
                         str_ends_with((string) $googleUser->getEmail(), $domain->getName())
                     ) {

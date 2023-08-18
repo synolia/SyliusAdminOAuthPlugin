@@ -48,45 +48,24 @@
         - { path: "%sylius.security.admin_regex%/connect/google",       role: PUBLIC_ACCESS }
         - { path: "%sylius.security.admin_regex%/connect/google/check", role: PUBLIC_ACCESS }
     ```
-4. Paste it in your config/packages/sylius_ui.yaml to create the button :
-    ```yaml script
-       sylius_ui:
-           events:
-               sylius.admin.login.form.content:
-                   blocks:
-                      google_oauth_button: '@SynoliaSyliusAdminOauthPlugin/google_auth_button.html.twig'
-    ```
-5. Paste it in config/packages/twig.yaml to make google_client_id variable global :
-    ```yaml script
-       twig:
-          globals:
-              google_client_id: '%env(OAUTH_GOOGLE_CLIENT_ID)%'
-   ```
-
-6. Edit config/packages/knpu_oauth2_client.yaml :
-    ```yaml script
-       knpu_oauth2_client:
-            clients:
-                google_main:
-                    type: google
-                    client_id: '%env(OAUTH_GOOGLE_CLIENT_ID)%'
-                    client_secret: '%env(OAUTH_GOOGLE_CLIENT_SECRET)%'
-                    redirect_route: 'connect_google_check'
-                    redirect_params: {}
-    ```
    
-7. Paste it in config/routes/synolia_oauth.yaml to make google_client_id variable global :
+4. Paste it in config/routes/synolia_oauth.yaml to make google_client_id variable global :
    ```yaml script
-        synolia_oauth:
-            resource: '@SynoliaSyliusAdminOauthPlugin/config/routes.yaml'
-            prefix: '/%sylius_admin.path_name%'
+    synolia_oauth:
+        resource: '@SynoliaSyliusAdminOauthPlugin/config/routes.yaml'
+        prefix: '/%sylius_admin.path_name%'
    ```
+5. Create a synolia_oauth_config.yaml to import all required configs :
+    ```yaml script
+    imports:
+      - { resource: "@SynoliaSyliusAdminOauthPlugin/config/app.yaml" }
+    ```
 
-8. Add this trait to your App\Entity\User\AdminUser.php
+6. Add this trait to your App\Entity\User\AdminUser.php
     ```php script
    use Synolia\SyliusAdminOauthPlugin\Entity\User\CustomAdminUserTrait;
    ```
-9. Run migration to give google_id and hosted_domain to your admin user entity :
+7. Run migration to give google_id and hosted_domain to your admin user entity and create Authorized domain table:
    ```shell script
     php bin/console doctrine:migrations:migrate
    ```
