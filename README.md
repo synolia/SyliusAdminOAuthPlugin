@@ -45,8 +45,8 @@
                 - Synolia\SyliusAdminOauthPlugin\Security\GoogleAuthenticator
     
       access_control:
-        - { path: "%sylius.security.admin_regex%/connect/google",       role: PUBLIC_ACCESS }
-        - { path: "%sylius.security.admin_regex%/connect/google/check", role: PUBLIC_ACCESS }
+        - { path: "%sylius.security.admin_regex%/connect/google",       role: PUBLIC_ACCESS, requires_channel: https }
+        - { path: "%sylius.security.admin_regex%/connect/google/check", role: PUBLIC_ACCESS, requires_channel: https }
     ```
 
 4. Create a config/routes/synolia_oauth.yaml to configure plugin's routes and to prefix them with 'admin':

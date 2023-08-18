@@ -6,6 +6,7 @@ namespace Synolia\SyliusAdminOauthPlugin\Factory;
 
 use App\Entity\User\AdminUser;
 use League\OAuth2\Client\Provider\GoogleUser;
+use Synolia\SyliusAdminOauthPlugin\Model\MicrosoftUser;
 
 final class AdminUserFactory
 {
@@ -24,6 +25,25 @@ final class AdminUserFactory
         /** @var string|null $googleId */
         $googleId = $googleUser->getId();
         $user->setGoogleId($googleId);
+
+        return $user;
+    }
+
+    public static function createByMicrosoftAccount(MicrosoftUser $microsoftUser): AdminUser
+    {
+        $user = new AdminUser();
+        $user->setEmail($microsoftUser->getEmail());
+        $user->setEmailCanonical($microsoftUser->getEmailCanonical());
+        $user->setUsername($microsoftUser->getUsername());
+        $user->setFirstName($microsoftUser->getFirstname());
+        $user->setLastName($microsoftUser->getLastname());
+        //        TODO: get user's locale code
+        $user->setLocaleCode('fr_FR');
+        $user->setEnabled(true);
+        $user->setCreatedAt(new \DateTimeImmutable('now'));
+        /** @var string|null $googleId */
+        $microsoftId = $microsoftUser->getId();
+        $user->setMicrosoftId($microsoftId);
 
         return $user;
     }

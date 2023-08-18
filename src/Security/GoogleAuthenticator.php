@@ -59,14 +59,14 @@ final class GoogleAuthenticator extends OAuth2Authenticator
                 $domains = $this->authorizedDomainRepository->findBy(['isEnabled' => true]);
                 // If there's no domains -> first use of the plugin -> connect
                 if (0 === \count($domains)) {
-                    return $this->userCreationService->createByGoogleAccount($googleUser);
+                    return $this->userCreationService->create($googleUser);
                 }
                 // Else connect compared to authorized domains
                 foreach ($domains as $domain) {
                     if (
                         str_ends_with((string) $googleUser->getEmail(), $domain->getName())
                     ) {
-                        return $this->userCreationService->createByGoogleAccount($googleUser);
+                        return $this->userCreationService->create($googleUser);
                     }
                 }
                 $translatedMessage = $this->translator->trans('sylius.google_authentication.domain_error');

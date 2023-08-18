@@ -17,6 +17,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Synolia\SyliusAdminOauthPlugin\Model\MicrosoftUser;
 use Synolia\SyliusAdminOauthPlugin\Repository\AuthorizedDomainRepository;
 use Synolia\SyliusAdminOauthPlugin\Service\UserCreationService;
 
@@ -27,7 +28,7 @@ final class MicrosoftAuthenticator extends OAuth2Authenticator
         private TranslatorInterface $translator,
         private RouterInterface $router,
         private UserCreationService $userCreationService,
-        private AuthorizedDomainRepository $authorizedDomainRepository
+        private AuthorizedDomainRepository $authorizedDomainRepository,
     ) {
     }
 
@@ -47,8 +48,10 @@ final class MicrosoftAuthenticator extends OAuth2Authenticator
     public function authenticate(Request $request): Passport
     {
         $client = $this->clientRegistry->getClient('azure_main');
+
         $accessToken = $this->fetchAccessToken($client);
 
+        /** @var MicrosoftUser $microsoftUser */
         $microsoftUser = $client->fetchUserFromToken($accessToken);
 
         return new SelfValidatingPassport(
@@ -56,14 +59,14 @@ final class MicrosoftAuthenticator extends OAuth2Authenticator
                 $domains = $this->authorizedDomainRepository->findBy(['isEnabled' => true]);
                 // If there's no domains -> first use of the plugin -> connect
                 if (0 === \count($domains)) {
-                    return $this->userCreationService->createByMicrosoftAccount($microsoftUser);
+                    return $this->userCreationService->create($microsoftUser);
                 }
                 // Else connect compared to authorized domains
                 foreach ($domains as $domain) {
                     if (
-                        str_ends_with((string) $microsoftUser->getEmail(), $domain->getName())
+                        null !== $microsoftUser->getEmail() && str_ends_with($microsoftUser->getEmail(), $domain->getName())
                     ) {
-                        return $this->userCreationService->createByMicrosoftAccount($microsoftUser);
+                        return $this->userCreationService->create($microsoftUser);
                     }
                 }
                 $translatedMessage = $this->translator->trans('sylius.microsoft_authentication.domain_error');
