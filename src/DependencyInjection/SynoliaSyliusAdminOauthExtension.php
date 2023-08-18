@@ -16,12 +16,9 @@ final class SynoliaSyliusAdminOauthExtension extends AbstractResourceExtension i
     use PrependDoctrineMigrationsTrait;
 
     /**
+     * {@inheritdoc}
+     *
      * @param array<mixed> $configs
-     * @param ContainerBuilder $container
-     *
-     * @throws \Exception
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function load(array $configs, ContainerBuilder $container): void
     {

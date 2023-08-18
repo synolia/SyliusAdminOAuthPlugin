@@ -9,6 +9,8 @@
     "license": "EUPL-1.2",
     "require": {
         "php": "^8.0",
+        "knpuniversity/oauth2-client-bundle": "^2.15",
+        "league/oauth2-google": "^4.0",
         "sylius/sylius": "^1.10"
     },
     "require-dev": {
@@ -52,5 +54,11 @@
             "Synolia\\Tests\\SyliusAdminOauthPlugin\\": "tests/"
         }
     },
-    "prefer-stable": true
+    "prefer-stable": true,
+    "scripts": {
+        "fix": "php-cs-fixer fix --config=dev/.php-cs-fixer.php",
+        "grumphp": "grumphp run --ansi",
+        "phpstan": "phpstan analyse -c dev/phpstan.neon --ansi",
+        "phpunit": "composer phpunit"
+    }
 }

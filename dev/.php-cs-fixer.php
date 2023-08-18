@@ -52,7 +52,10 @@ return (new \PhpCsFixer\Config())
     ])
     ->setRiskyAllowed(true)
     ->setFinder(PhpCsFixer\Finder::create()
-        ->in(\dirname(__DIR__) . '/{src,tests}')
+        ->in(\dirname(__DIR__) . '/{src,tests/PHPUnit}')
         ->notName('Kernel.php')
-    )
+        ->notPath([
+            // Exclude entity to avoid mark them as final. You should by the way manually run cs-fixer on these files.
+            'Entity',
+        ]))
 ;
