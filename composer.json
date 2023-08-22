@@ -11,7 +11,8 @@
         "php": "^8.0",
         "knpuniversity/oauth2-client-bundle": "^2.15",
         "league/oauth2-google": "^4.0",
-        "sylius/sylius": "^1.10"
+        "sylius/sylius": "^1.10",
+        "thenetworg/oauth2-azure": "^2.2"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "3.16.0",

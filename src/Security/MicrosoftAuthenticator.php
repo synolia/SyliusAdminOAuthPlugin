@@ -17,9 +17,9 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Synolia\SyliusAdminOauthPlugin\Model\MicrosoftUser;
 use Synolia\SyliusAdminOauthPlugin\Repository\AuthorizedDomainRepository;
 use Synolia\SyliusAdminOauthPlugin\Service\UserCreationService;
+use TheNetworg\OAuth2\Client\Provider\AzureResourceOwner;
 
 final class MicrosoftAuthenticator extends OAuth2Authenticator
 {
@@ -39,11 +39,7 @@ final class MicrosoftAuthenticator extends OAuth2Authenticator
     }
 
     /**
-     * @param Request $request
-     *
-     * @return Passport
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * {@inheritDoc}
      */
     public function authenticate(Request $request): Passport
     {
@@ -51,7 +47,7 @@ final class MicrosoftAuthenticator extends OAuth2Authenticator
 
         $accessToken = $this->fetchAccessToken($client);
 
-        /** @var MicrosoftUser $microsoftUser */
+        /** @var AzureResourceOwner $microsoftUser */
         $microsoftUser = $client->fetchUserFromToken($accessToken);
 
         return new SelfValidatingPassport(
@@ -64,7 +60,7 @@ final class MicrosoftAuthenticator extends OAuth2Authenticator
                 // Else connect compared to authorized domains
                 foreach ($domains as $domain) {
                     if (
-                        null !== $microsoftUser->getEmail() && str_ends_with($microsoftUser->getEmail(), $domain->getName())
+                        null !== $microsoftUser->getUpn() && str_ends_with($microsoftUser->getUpn(), $domain->getName())
                     ) {
                         return $this->userCreationService->create($microsoftUser);
                     }

@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Synolia\SyliusAdminOauthPlugin\Factory;
 
-use App\Entity\User\AdminUser;
+use App\Entity\User\AdminUser as customAdminUser;
 use League\OAuth2\Client\Provider\GoogleUser;
-use Synolia\SyliusAdminOauthPlugin\Model\MicrosoftUser;
+use TheNetworg\OAuth2\Client\Provider\AzureResourceOwner;
 
 final class AdminUserFactory
 {
-    public static function createByGoogleAccount(GoogleUser $googleUser): AdminUser
+    public static function createByGoogleAccount(GoogleUser $googleUser): customAdminUser
     {
-        $user = new AdminUser();
+        $user = new customAdminUser();
         $user->setEmail($googleUser->getEmail());
         $user->setEmailCanonical($googleUser->getEmail());
         $user->setUsername($googleUser->getName());
@@ -29,19 +29,18 @@ final class AdminUserFactory
         return $user;
     }
 
-    public static function createByMicrosoftAccount(MicrosoftUser $microsoftUser): AdminUser
+    public static function createByMicrosoftAccount(AzureResourceOwner $microsoftUser, string $locale): customAdminUser
     {
-        $user = new AdminUser();
-        $user->setEmail($microsoftUser->getEmail());
-        $user->setEmailCanonical($microsoftUser->getEmailCanonical());
-        $user->setUsername($microsoftUser->getUsername());
+        $user = new customAdminUser();
+        $user->setEmail($microsoftUser->getUpn());
+        $user->setEmailCanonical($microsoftUser->getUpn());
+        $user->setUsername($microsoftUser->getFirstName() . '_' . $microsoftUser->getLastName() . '_' . random_int(1, 100));
         $user->setFirstName($microsoftUser->getFirstname());
         $user->setLastName($microsoftUser->getLastname());
-        //        TODO: get user's locale code
-        $user->setLocaleCode('fr_FR');
+        $user->setLocaleCode($locale);
         $user->setEnabled(true);
         $user->setCreatedAt(new \DateTimeImmutable('now'));
-        /** @var string|null $googleId */
+        /** @var string|null $microsoftId */
         $microsoftId = $microsoftUser->getId();
         $user->setMicrosoftId($microsoftId);
 
