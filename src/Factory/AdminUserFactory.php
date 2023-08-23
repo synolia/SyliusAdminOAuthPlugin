@@ -15,7 +15,7 @@ final class AdminUserFactory
         $user = new customAdminUser();
         $user->setEmail($googleUser->getEmail());
         $user->setEmailCanonical($googleUser->getEmail());
-        $user->setUsername($googleUser->getName());
+        $user->setUsername(self::setUsername($googleUser->getFirstName(), $googleUser->getLastName()));
         $user->setFirstName($googleUser->getFirstName());
         $user->setLastName($googleUser->getLastName());
         $user->setHostedDomain($googleUser->getHostedDomain());
@@ -34,7 +34,7 @@ final class AdminUserFactory
         $user = new customAdminUser();
         $user->setEmail($microsoftUser->getUpn());
         $user->setEmailCanonical($microsoftUser->getUpn());
-        $user->setUsername($microsoftUser->getFirstName() . '_' . $microsoftUser->getLastName() . '_' . random_int(1, 100));
+        $user->setUsername(self::setUsername($microsoftUser->getFirstName(), $microsoftUser->getLastName()));
         $user->setFirstName($microsoftUser->getFirstname());
         $user->setLastName($microsoftUser->getLastname());
         $user->setLocaleCode($locale);
@@ -45,5 +45,10 @@ final class AdminUserFactory
         $user->setMicrosoftId($microsoftId);
 
         return $user;
+    }
+
+    public static function setUsername(string $firstname, string $lastname): string
+    {
+        return $firstname . '_' . $lastname . '_' . random_int(1, 100);
     }
 }

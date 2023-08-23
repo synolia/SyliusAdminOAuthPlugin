@@ -1,7 +1,9 @@
 sylius:
+  oauth_authentication:
+      no_configured_domain: Aucun domaine configuré pour la connexion Oauth
+      domain_error: Impossible de se connecter, merci de réessayer.
   google_authentication:
       login_button: Connexion avec votre compte Google 
-      domain_error: Impossible de se connecter, merci de réessayer.
       authentication_failure: La connexion a échouée, veuillez réessayer.
   ui:
       '': Non
