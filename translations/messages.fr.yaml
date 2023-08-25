@@ -1,17 +1,20 @@
 sylius:
-  oauth_authentication:
-      no_configured_domain: Aucun domaine configuré pour la connexion Oauth
-      domain_error: Impossible de se connecter, merci de réessayer.
-  google_authentication:
-      login_button: Connexion avec votre compte Google 
-      authentication_failure: La connexion a échouée, veuillez réessayer.
-  ui:
-      '': Non
-      1: Oui
-      isEnabled: Activé
-      admin:
-          menu:
-              oauth_submenu_label: Domaines autorisés
+    oauth_authentication:
+        no_configured_domain: Aucun domaine configuré pour la connexion Oauth
+        domain_error: Impossible de se connecter, merci de réessayer.
+    google_authentication:
+        login_button: Connexion avec votre compte Google
+        domain_error: Impossible de se connecter, merci de réessayer.
+        authentication_failure: La connexion a échouée, veuillez réessayer.
+    ui:
+        is_enabled: Activé
+        admin:
+            menu:
+                oauth_submenu_label: Domaines autorisés
+        authentication:
+            admin:
+                microsoft_login_button_label: Se connecter avec Microsoft
+
 app:
     ui:
         authorized_domains: Domaines autorisés

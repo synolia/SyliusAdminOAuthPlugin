@@ -15,7 +15,8 @@
 
 ## Features
 
-* TODO
+* Allow your admin users to subscribe / connect with Oauth providers.
+* Allow domain connexion management.
 
 ## Requirements
 
@@ -27,19 +28,19 @@
 ## Installation
 
 1. Add the bundle and dependencies in your composer.json :
-    ```shell script
+    ```shell
     $ composer require synolia/sylius-admin-oauth-plugin
     ```
 2. Write your Google and/or Microsoft client Id and client secret in you .env file with those keys :
-    ```dotenv script
+    ```dotenv
     OAUTH_GOOGLE_CLIENT_ID=
     OAUTH_GOOGLE_CLIENT_SECRET=
-   
+
     OAUTH_MICROSOFT_CLIENT_ID=
     OAUTH_MICROSOFT_CLIENT_SECRET=
     ```
 3. In your security.yaml, add the Oauth authenticator in your admin firewall and put access_control paths you need depending on wich provider you use. **They must be on top of the others** :
-    ```yaml script
+    ```yaml
     security:
       enable_authenticator_manager: true
       firewalls:
@@ -56,23 +57,30 @@
     ```
 
 4. Create a config/routes/synolia_oauth.yaml to configure plugin's routes and to prefix them with 'admin':
-   ```yaml script
+   ```yaml
     synolia_oauth:
         resource: '@SynoliaSyliusAdminOauthPlugin/config/routes.yaml'
         prefix: '/%sylius_admin.path_name%'
    ```
 5. Create a config/packages/synolia_oauth_config.yaml to import all required configs :
-    ```yaml script
+    ```yaml
     imports:
       - { resource: "@SynoliaSyliusAdminOauthPlugin/config/app.yaml" }
     ```
 
 6. Add this trait to your App\Entity\User\AdminUser.php
-    ```php script
-   use Synolia\SyliusAdminOauthPlugin\Entity\User\CustomAdminUserTrait;
-   ```
+    ```php
+    use Doctrine\ORM\Mapping as ORM;
+    use Sylius\Component\Core\Model\AdminUser as BaseAdminUser;
+    use Synolia\SyliusAdminOauthPlugin\Entity\User\CustomAdminUserTrait;
+    
+    class AdminUser extends BaseAdminUser
+    {
+         use CustomAdminUserTrait;
+    }
+    ```
 7. Run migration to give google_id and hosted_domain to your admin user entity and create Authorized domain table:
-   ```shell script
+   ```shell
     php bin/console doctrine:migrations:migrate
    ```
    
