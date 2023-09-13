@@ -45,17 +45,17 @@
                 - Synolia\SyliusAdminOauthPlugin\Security\GoogleAuthenticator
     
       access_control:
-        - { path: "%sylius.security.admin_regex%/connect/google",       role: PUBLIC_ACCESS }
-        - { path: "%sylius.security.admin_regex%/connect/google/check", role: PUBLIC_ACCESS }
+        - { path: "%sylius.security.admin_regex%/connect/google",       role: PUBLIC_ACCESS, requires_channel: https }
+        - { path: "%sylius.security.admin_regex%/connect/google/check", role: PUBLIC_ACCESS, requires_channel: https }
     ```
-   
-4. Paste it in config/routes/synolia_oauth.yaml to make google_client_id variable global :
+
+4. Create a config/routes/synolia_oauth.yaml to configure plugin's routes and to prefix them with 'admin':
    ```yaml script
     synolia_oauth:
         resource: '@SynoliaSyliusAdminOauthPlugin/config/routes.yaml'
         prefix: '/%sylius_admin.path_name%'
    ```
-5. Create a synolia_oauth_config.yaml to import all required configs :
+5. Create a config/packages/synolia_oauth_config.yaml to import all required configs :
     ```yaml script
     imports:
       - { resource: "@SynoliaSyliusAdminOauthPlugin/config/app.yaml" }

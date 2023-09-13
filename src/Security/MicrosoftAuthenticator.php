@@ -6,12 +6,10 @@ namespace Synolia\SyliusAdminOauthPlugin\Security;
 
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\OAuth2Authenticator;
-use League\OAuth2\Client\Provider\GoogleUser;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -21,8 +19,9 @@ use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPasspor
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Synolia\SyliusAdminOauthPlugin\Repository\AuthorizedDomainRepository;
 use Synolia\SyliusAdminOauthPlugin\Service\UserCreationService;
+use TheNetworg\OAuth2\Client\Provider\AzureResourceOwner;
 
-final class GoogleAuthenticator extends OAuth2Authenticator
+final class MicrosoftAuthenticator extends OAuth2Authenticator
 {
     public function __construct(
         private ClientRegistry $clientRegistry,
@@ -30,46 +29,43 @@ final class GoogleAuthenticator extends OAuth2Authenticator
         private RouterInterface $router,
         private UserCreationService $userCreationService,
         private AuthorizedDomainRepository $authorizedDomainRepository,
-        private UrlGeneratorInterface $urlGenerator
     ) {
     }
 
     public function supports(Request $request): ?bool
     {
         // continue ONLY if the current ROUTE matches the check ROUTE
-        return 'connect_google_check' === $request->attributes->get('_route');
+        return 'connect_microsoft_check' === $request->attributes->get('_route');
     }
 
     /**
-     * @param Request $request
-     *
-     * @return Passport
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * {@inheritDoc}
      */
     public function authenticate(Request $request): Passport
     {
-        $client = $this->clientRegistry->getClient('google_main');
+        $client = $this->clientRegistry->getClient('azure_main');
+
         $accessToken = $this->fetchAccessToken($client);
-        /** @var GoogleUser $googleUser */
-        $googleUser = $client->fetchUserFromToken($accessToken);
+
+        /** @var AzureResourceOwner $microsoftUser */
+        $microsoftUser = $client->fetchUserFromToken($accessToken);
 
         return new SelfValidatingPassport(
-            new UserBadge($accessToken->getToken(), function () use ($googleUser) {
+            new UserBadge($accessToken->getToken(), function () use ($microsoftUser) {
                 $domains = $this->authorizedDomainRepository->findBy(['isEnabled' => true]);
                 // If there's no domains -> first use of the plugin -> connect
                 if (0 === \count($domains)) {
-                    return $this->userCreationService->create($googleUser);
+                    return $this->userCreationService->create($microsoftUser);
                 }
                 // Else connect compared to authorized domains
                 foreach ($domains as $domain) {
                     if (
-                        str_ends_with((string) $googleUser->getEmail(), $domain->getName())
+                        null !== $microsoftUser->getUpn() && str_ends_with($microsoftUser->getUpn(), $domain->getName())
                     ) {
-                        return $this->userCreationService->create($googleUser);
+                        return $this->userCreationService->create($microsoftUser);
                     }
                 }
-                $translatedMessage = $this->translator->trans('sylius.google_authentication.domain_error');
+                $translatedMessage = $this->translator->trans('sylius.microsoft_authentication.domain_error');
                 throw new AuthenticationException($translatedMessage);
             })
         );
@@ -94,15 +90,13 @@ final class GoogleAuthenticator extends OAuth2Authenticator
     /**
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?RedirectResponse
     {
-        $translatedMessage = $this->translator->trans('sylius.google_authentication.authentication_failure');
+        $translatedMessage = $this->translator->trans('sylius.microsoft_authentication.authentication_failure');
         /** @var Session $session */
         $session = $request->getSession();
         $session->getFlashBag()->add('danger', $translatedMessage);
 
-        $adminPage = $this->urlGenerator->generate('sylius_admin_login');
-
-        return new RedirectResponse($adminPage, 302);
+        return new RedirectResponse('/admin/login', 302);
     }
 }

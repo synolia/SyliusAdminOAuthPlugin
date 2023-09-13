@@ -12,14 +12,13 @@ final class AdminMenuListener
     {
         $menu = $event->getMenu();
 
-        $newSubmenu = $menu
-            ->addChild('authorized_domain')
-            ->setLabel('Oauth')
-        ;
+        $newSubmenu = $menu->getChild('configuration');
 
-        $newSubmenu
-            ->addChild('authorized_domain', ['route' => 'app_admin_authorized_domain_index'])
-            ->setLabel('sylius.ui.admin.menu.oauth_submenu_label')
-        ;
+        if (null !== $newSubmenu) {
+            $newSubmenu
+                        ->addChild('authorized_domain', ['route' => 'app_admin_authorized_domain_index'])
+                        ->setLabel('sylius.ui.authorized_domains.menu_label')
+                        ->setLabelAttribute('icon', 'cube');
+        }
     }
 }

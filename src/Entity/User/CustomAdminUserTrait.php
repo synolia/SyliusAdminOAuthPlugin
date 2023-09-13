@@ -15,6 +15,12 @@ trait CustomAdminUserTrait
     private ?string $googleId = null;
 
     /**
+     * @Column(name="microsoft_id", type="string", nullable=true)
+     */
+    #[Column(name: 'microsoft_id', type: 'string', nullable: true)]
+    private ?string $microsoftId = null;
+
+    /**
      * @Column(name="hosted_domain", type="string", nullable=true)
      */
     #[Column(name: 'hosted_domain', type: 'string', nullable: true)]
@@ -47,5 +53,15 @@ trait CustomAdminUserTrait
     public function setHostedDomain(?string $hostedDomain): void
     {
         $this->hostedDomain = $hostedDomain;
+    }
+
+    public function getMicrosoftId(): ?string
+    {
+        return $this->microsoftId;
+    }
+
+    public function setMicrosoftId(?string $microsoftId): void
+    {
+        $this->microsoftId = $microsoftId;
     }
 }
