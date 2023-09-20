@@ -7,9 +7,8 @@ namespace Synolia\SyliusAdminOauthPlugin\Service;
 use Doctrine\ORM\EntityManagerInterface;
 use League\OAuth2\Client\Provider\GoogleUser;
 use Sylius\Component\Core\Model\AdminUser;
-use Sylius\Component\Locale\Context\LocaleContextInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use Synolia\SyliusAdminOauthPlugin\Factory\AdminUserFactory;
+use Synolia\SyliusAdminOauthPlugin\Security\Resolver\DomainInformationsResolver;
 use TheNetworg\OAuth2\Client\Provider\AzureResourceOwner;
 
 final class UserCreationService
@@ -17,44 +16,79 @@ final class UserCreationService
     public function __construct(
         private EntityManagerInterface $entityManager,
         private RepositoryInterface $adminUserRepository,
-        private LocaleContextInterface $localeContext
+        private DomainInformationsResolver $domainInformationsResolver
     ) {
     }
 
-    public function create(GoogleUser|AzureResourceOwner $user): AdminUser
+    public function create(GoogleUser|AzureResourceOwner $user): ?AdminUser
     {
-        if ($user instanceof GoogleUser) {
-            /** @var AdminUser $existingUser */
-            $existingUser = $this->adminUserRepository->findOneBy(['googleId' => $user->getId()]);
-        } else {
-            /** @var AdminUser $existingUser */
-            $existingUser = $this->adminUserRepository->findOneBy(['microsoftId' => $user->getId()]);
-        }
-        // 1) have they logged in with Google before? Easy!
+        $domainInformation = $this->domainInformationsResolver->getDomainInformations($user);
+        $existingUser = $this->getExistingUser($domainInformation, $user);
+
+        // 1) have they logged in before ?
         if (null !== $existingUser) {
             return $existingUser;
         }
-        // 2) do we have a matching user by email?
-        if ($user instanceof GoogleUser) {
-            /** @var AdminUser $userToReturn */
-            $userToReturn = $this->adminUserRepository->findOneBy(['email' => $user->getEmail()]);
-        } else {
-            /** @var AdminUser $userToReturn */
-            $userToReturn = $this->adminUserRepository->findOneBy(['email' => $user->getUpn()]);
-        }
-        // 3) register google user
-        if (null === $userToReturn) {
-            if ($user instanceof GoogleUser) {
-                $userToReturn = AdminUserFactory::createByGoogleAccount($user);
-            } else {
-                $userToReturn = AdminUserFactory::createByMicrosoftAccount($user, $this->localeContext->getLocaleCode());
-            }
 
-            $this->entityManager->persist($userToReturn);
-            $this->entityManager->flush();
+        // 2) do we have a matching user by email?
+        $userToReturn = $this->getEmailMatchingUser($domainInformation, $user);
+
+        // 3) register user if its email doesn't exists
+        if (null === $userToReturn) {
+            /** @var AdminUser */
+            return $this->registerUser($domainInformation, $user);
         }
 
         /** @var AdminUser */
+        return $userToReturn;
+    }
+
+    /**
+     * @param array<string, array<string, AdminUser|string|null>> $domainInformation
+     */
+    private function getExistingUser(array $domainInformation, GoogleUser|AzureResourceOwner $user): ?AdminUser
+    {
+        foreach ($domainInformation as $class => $properties) {
+            if ($user instanceof $class && \is_string($properties['propertyName'])) {
+                /** @var AdminUser|null */
+                return $this->adminUserRepository->findOneBy([$properties['propertyName'] => $user->getId()]);
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @param array<string, array<string, AdminUser|string|null>> $domainInformation
+     */
+    private function getEmailMatchingUser(array $domainInformation, GoogleUser|AzureResourceOwner $user): ?AdminUser
+    {
+        foreach ($domainInformation as $class => $properties) {
+            if ($user instanceof $class) {
+                /** @var AdminUser|null */
+                return $this->adminUserRepository->findOneBy(['email' => $properties['userEmail']]);
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @param array<string, array<string, AdminUser|string|null>> $domainInformation
+     */
+    private function registerUser(array $domainInformation, GoogleUser|AzureResourceOwner $user): ?AdminUser
+    {
+        $userToReturn = null;
+
+        foreach ($domainInformation as $class => $properties) {
+            if ($user instanceof $class) {
+                /** @var AdminUser $userToReturn */
+                $userToReturn = $properties['newUser'];
+                $this->entityManager->persist($userToReturn);
+                $this->entityManager->flush();
+            }
+        }
+
         return $userToReturn;
     }
 }

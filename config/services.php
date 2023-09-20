@@ -31,5 +31,10 @@ return function (ContainerConfigurator $containerConfigurator) {
         ])
         ->tag('type', [
             'name' => 'form.type'
+        ])
+        ->load('Synolia\SyliusAdminOauthPlugin\Security\Authenticator\\', '../src/Security/Authenticator')
+        ->args([
+            '$googleClientId' => '%env(default::OAUTH_GOOGLE_CLIENT_ID)%',
+            '$microsoftClientId' => '%env(default::OAUTH_MICROSOFT_CLIENT_ID)%',
         ]);
 };

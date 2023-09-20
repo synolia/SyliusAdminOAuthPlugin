@@ -30,23 +30,29 @@
     ```shell script
     $ composer require synolia/sylius-admin-oauth-plugin
     ```
-2. Write your google client Id and client secret in you .env file with those keys :
+2. Write your Google and/or Microsoft client Id and client secret in you .env file with those keys :
     ```dotenv script
     OAUTH_GOOGLE_CLIENT_ID=
     OAUTH_GOOGLE_CLIENT_SECRET=
+   
+    OAUTH_MICROSOFT_CLIENT_ID=
+    OAUTH_MICROSOFT_CLIENT_SECRET=
     ```
-3. In your security.yaml, add a custom authenticator in your admin firewall and put 2 more access_control paths wich must be on top of the others :
+3. In your security.yaml, add the Oauth authenticator in your admin firewall and put access_control paths you need depending on wich provider you use. **They must be on top of the others** :
     ```yaml script
     security:
       enable_authenticator_manager: true
       firewalls:
         admin:
             custom_authenticators:
-                - Synolia\SyliusAdminOauthPlugin\Security\GoogleAuthenticator
+                - Synolia\SyliusAdminOauthPlugin\Security\Authenticator\OauthAuthenticator
     
       access_control:
         - { path: "%sylius.security.admin_regex%/connect/google",       role: PUBLIC_ACCESS, requires_channel: https }
         - { path: "%sylius.security.admin_regex%/connect/google/check", role: PUBLIC_ACCESS, requires_channel: https }
+   
+        - { path: "%sylius.security.admin_regex%/connect/microsoft",       role: PUBLIC_ACCESS, requires_channel: https }
+        - { path: "%sylius.security.admin_regex%/connect/microsoft/check", role: PUBLIC_ACCESS, requires_channel: https }
     ```
 
 4. Create a config/routes/synolia_oauth.yaml to configure plugin's routes and to prefix them with 'admin':
@@ -69,6 +75,10 @@
    ```shell script
     php bin/console doctrine:migrations:migrate
    ```
+   
+Don't forget to add your Allowed redirect URIs in google cloud console ! 
+Full documentation here : https://cloud.google.com/looker/docs/admin-panel-authentication-google
+
 You can now connect to your Google account in admin login pannel !
 
 ## Development
