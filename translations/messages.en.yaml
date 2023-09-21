@@ -3,15 +3,17 @@ sylius:
         no_configured_domain: There is no configured domain to connect with
         domain_error: Impossible to connect, try again
     google_authentication:
-        login_button: Connect with google account.
+        login_button: Sign in with google account.
+        domain_error: Impossible to connect, try again.
         authentication_failure: Impossible to connect, try again.
     ui:
-        '': No
-        1: Yes
-        isEnabled: Enabled
+        is_enabled: Enabled
         admin:
             menu:
                 oauth_submenu_label: Authorized domains
+    authentication:
+        admin:
+            microsoft_login_button_label: Sign in with Microsoft
 app:
     ui:
         authorized_domains: Authorized domains

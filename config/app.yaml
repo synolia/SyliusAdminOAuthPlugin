@@ -2,6 +2,7 @@ sylius_ui:
     events:
         sylius.admin.login.form.content:
             blocks:
+                alerts: '@SynoliaSyliusAdminOauthPlugin/alerts.html.twig'
                 google_oauth_button: '@SynoliaSyliusAdminOauthPlugin/google_auth_button.html.twig'
                 microsoft_oauth_button: '@SynoliaSyliusAdminOauthPlugin/microsoft_auth_button.html.twig'
 
@@ -63,7 +64,7 @@ sylius_grid:
                     sortable: ~
                 isEnabled:
                     type: twig
-                    label: sylius.ui.isEnabled
+                    label: sylius.ui.is_enabled
                     options:
                         template: "@SyliusUi/Grid/Field/state.html.twig"
                         vars:
