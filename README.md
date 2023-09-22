@@ -1,5 +1,5 @@
-[![License](https://img.shields.io/packagist/l/synolia/sylius-admin-oauth-plugin.svg)](https://github.com/synolia/SyliusAdminOauthPlugin/blob/master/LICENSE)
-![Tests](https://github.com/synolia/SyliusAdminOauthPlugin/workflows/CI/badge.svg?branch=master)
+[![License](https://img.shields.io/packagist/l/synolia/sylius-admin-oauth-plugin.svg)](https://github.com/synolia/SyliusAdminOauthPlugin/blob/main/LICENSE)
+![Tests](https://github.com/synolia/SyliusAdminOauthPlugin/workflows/CI/badge.svg?branch=main)
 [![Version](https://img.shields.io/packagist/v/synolia/sylius-admin-oauth-plugin.svg)](https://packagist.org/packages/synolia/sylius-admin-oauth-plugin)
 [![Total Downloads](https://poser.pugx.org/synolia/sylius-admin-oauth-plugin/downloads)](https://packagist.org/packages/synolia/sylius-admin-oauth-plugin)
 
@@ -15,7 +15,9 @@
 
 ## Features
 
-* Allow your admin users to subscribe / connect with Oauth providers.
+* Allow your admin users to subscribe and sign in with Oauth providers :
+    * Google
+    * Microsoft
 * Allow domain connexion management.
 
 ## Requirements
@@ -73,7 +75,7 @@
     use Doctrine\ORM\Mapping as ORM;
     use Sylius\Component\Core\Model\AdminUser as BaseAdminUser;
     use Synolia\SyliusAdminOauthPlugin\Entity\User\CustomAdminUserTrait;
-    
+
     class AdminUser extends BaseAdminUser
     {
          use CustomAdminUserTrait;
@@ -83,11 +85,19 @@
    ```shell
     php bin/console doctrine:migrations:migrate
    ```
-   
-Don't forget to add your Allowed redirect URIs in google cloud console ! 
-Full documentation here : https://cloud.google.com/looker/docs/admin-panel-authentication-google
 
-You can now connect to your Google account in admin login pannel !
+8. After the first installation, no domain is configured so you have to add one to be able to connect with oauth.
+   If you allready have admin users, add one through the administration panel and authorize it. You can access it through oauth domain administration section in the menu.
+
+
+
+Don't forget to add your Allowed redirect URIs in Google cloud console or Azure Active Directory !
+Full documentation here : 
+* Google : https://cloud.google.com/looker/docs/admin-panel-authentication-google 
+* Microsoft : https://learn.microsoft.com/fr-fr/azure/active-directory/architecture/auth-oauth2
+
+
+You can now connect to your accounts with Oauth in the admin login pannel !
 
 ## Development
 

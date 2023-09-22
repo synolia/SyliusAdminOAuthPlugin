@@ -66,7 +66,7 @@ sylius_grid:
                     type: twig
                     label: sylius.ui.is_enabled
                     options:
-                        template: "@SyliusUi/Grid/Field/state.html.twig"
+                        template: "@SynoliaSyliusAdminOauthPlugin/state.html.twig"
                         vars:
                             labels: "AuthorizedDomain/Label/Status"
                     sortable: ~

@@ -7,6 +7,8 @@ sylius:
         domain_error: Impossible to connect, try again.
         authentication_failure: Impossible to connect, try again.
     ui:
+        true_label: yes
+        false_label: no
         is_enabled: Enabled
         admin:
             menu:
