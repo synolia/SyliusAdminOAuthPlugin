@@ -94,7 +94,7 @@
 Don't forget to add your Allowed redirect URIs in Google cloud console or Azure Active Directory !
 Full documentation here : 
 * Google : https://cloud.google.com/looker/docs/admin-panel-authentication-google 
-* Microsoft : https://learn.microsoft.com/fr-fr/azure/active-directory/architecture/auth-oauth2
+* Microsoft : https://learn.microsoft.com/en-en/azure/active-directory/architecture/auth-oauth2
 
 
 You can now connect to your accounts with Oauth in the admin login pannel !
