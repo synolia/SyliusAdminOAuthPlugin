@@ -16,9 +16,9 @@ final class AdminMenuListener
 
         if (null !== $newSubmenu) {
             $newSubmenu
-                        ->addChild('authorized_domain', ['route' => 'app_admin_authorized_domain_index'])
-                        ->setLabel('sylius.ui.authorized_domains.menu_label')
-                        ->setLabelAttribute('icon', 'cube');
+                ->addChild('authorized_domain', ['route' => 'app_admin_authorized_domain_index'])
+                ->setLabel('sylius.ui.admin.menu.oauth_submenu_label')
+                ->setLabelAttribute('icon', 'cube');
         }
     }
 }
