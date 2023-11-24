@@ -6,7 +6,7 @@ namespace Synolia\SyliusAdminOauthPlugin\Model;
 
 final class OauthClient
 {
-    private string|int $id;
+    private int|string $id;
 
     private string $name;
 

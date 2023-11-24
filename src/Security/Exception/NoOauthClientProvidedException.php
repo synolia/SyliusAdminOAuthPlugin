@@ -4,6 +4,4 @@ declare(strict_types=1);
 
 namespace Synolia\SyliusAdminOauthPlugin\Security\Exception;
 
-final class NoOauthClientProvidedException extends \Exception
-{
-}
+final class NoOauthClientProvidedException extends \Exception {}

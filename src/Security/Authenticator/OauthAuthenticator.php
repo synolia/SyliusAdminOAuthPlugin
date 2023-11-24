@@ -42,8 +42,7 @@ final class OauthAuthenticator extends OAuth2Authenticator
         private Providers $providers,
         private ?string $googleClientId,
         private ?string $microsoftClientId
-    ) {
-    }
+    ) {}
 
     /**
      * {@inheritdoc}
