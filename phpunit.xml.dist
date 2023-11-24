@@ -5,15 +5,15 @@
          colors="true"
          bootstrap="config/bootstrap.php">
     <testsuites>
-        <testsuite name="SynoliaSyliusAdminOauthPlugin Test Suite">
-            <directory>tests</directory>
+        <testsuite name="Test Suite">
+            <directory>vendor/synolia/sylius-admin-oauth-plugin/tests/PHPUnit</directory>
         </testsuite>
     </testsuites>
 
     <php>
         <ini name="error_reporting" value="-1" />
 
-        <server name="KERNEL_CLASS_PATH" value="/tests/Application/AppKernel.php" />
+        <server name="KERNEL_CLASS_PATH" value="src/Kernel.php" />
         <server name="IS_DOCTRINE_ORM_SUPPORTED" value="true" />
 
         <env name="APP_ENV" value="test"/>
