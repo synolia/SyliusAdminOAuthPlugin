@@ -14,8 +14,7 @@ final class DomainInformationsResolver
 {
     public function __construct(
         private LocaleContextInterface $localeContext
-    ) {
-    }
+    ) {}
 
     /**
      * @return array<string, array<string, AdminUser|string|null>>

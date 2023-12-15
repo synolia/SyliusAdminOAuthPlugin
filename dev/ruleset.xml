@@ -16,4 +16,10 @@
             </property>
         </properties>
     </rule>
+    <rule ref="Squiz.WhiteSpace.ScopeClosingBrace.ContentBefore">
+        <exclude-pattern>src/*.php</exclude-pattern>
+    </rule>
+    <rule ref="PSR2.Classes.ClassDeclaration.OpenBraceNewLine">
+        <exclude-pattern>src/*.php</exclude-pattern>
+    </rule>
 </ruleset>

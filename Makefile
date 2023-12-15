@@ -7,8 +7,8 @@ COMPOSER=cd tests/Application && composer
 YARN=cd tests/Application && yarn
 
 SYLIUS_VERSION=1.12.0
-SYMFONY_VERSION=6.2
-PHP_VERSION=8.1
+SYMFONY_VERSION=6.3
+PHP_VERSION=8.2
 PLUGIN_NAME=synolia/sylius-admin-oauth-plugin
 
 ###
@@ -63,6 +63,9 @@ install-plugin:
 	${COMPOSER} req ${PLUGIN_NAME}:* --prefer-source --no-scripts
 ifneq ("$(wildcard install/Application)","")
 	cp -r install/Application tests
+ifeq ($(shell [[ $(SYMFONY_VERSION) == 5.4 ]] && echo true ),true)
+	cp install/routes-5-4.yaml tests/Application/vendor/synolia/sylius-admin-oauth-plugin/config/routes.yaml
+endif
 endif
 ifneq ("$(wildcard tests/data)","")
 	cp -r tests/data/* ${TEST_DIRECTORY}/

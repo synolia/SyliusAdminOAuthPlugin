@@ -17,10 +17,9 @@ final class UserCreationService
         private EntityManagerInterface $entityManager,
         private RepositoryInterface $adminUserRepository,
         private DomainInformationsResolver $domainInformationsResolver
-    ) {
-    }
+    ) {}
 
-    public function create(GoogleUser|AzureResourceOwner $user): ?AdminUser
+    public function create(AzureResourceOwner|GoogleUser $user): ?AdminUser
     {
         $domainInformation = $this->domainInformationsResolver->getDomainInformations($user);
         $existingUser = $this->getExistingUser($domainInformation, $user);
@@ -46,7 +45,7 @@ final class UserCreationService
     /**
      * @param array<string, array<string, AdminUser|string|null>> $domainInformation
      */
-    private function getExistingUser(array $domainInformation, GoogleUser|AzureResourceOwner $user): ?AdminUser
+    private function getExistingUser(array $domainInformation, AzureResourceOwner|GoogleUser $user): ?AdminUser
     {
         foreach ($domainInformation as $class => $properties) {
             if ($user instanceof $class && \is_string($properties['propertyName'])) {
@@ -61,7 +60,7 @@ final class UserCreationService
     /**
      * @param array<string, array<string, AdminUser|string|null>> $domainInformation
      */
-    private function getEmailMatchingUser(array $domainInformation, GoogleUser|AzureResourceOwner $user): ?AdminUser
+    private function getEmailMatchingUser(array $domainInformation, AzureResourceOwner|GoogleUser $user): ?AdminUser
     {
         foreach ($domainInformation as $class => $properties) {
             if ($user instanceof $class) {
@@ -76,7 +75,7 @@ final class UserCreationService
     /**
      * @param array<string, array<string, AdminUser|string|null>> $domainInformation
      */
-    private function registerUser(array $domainInformation, GoogleUser|AzureResourceOwner $user): ?AdminUser
+    private function registerUser(array $domainInformation, AzureResourceOwner|GoogleUser $user): ?AdminUser
     {
         $userToReturn = null;
 
