@@ -99,6 +99,22 @@ Full documentation here :
 
 You can now connect to your accounts with Oauth in the admin login pannel !
 
+## Troubleshootings
+
+- Error 'TOO_MANY_REDIRECT' : add these two lines
+  - services.yaml:
+    ```yaml
+    parameters:
+    router.request_context.scheme: 'https'
+    ```
+   - framework.yaml:
+    ```yaml
+      framework:
+        trusted_proxies: '127.0.0.1,REMOTE_ADDR'
+    ```
+- If you don't see your oauth connexion button, verify your .env variables where your client_id and client_secret are specified
+- If you have "Impossible to connect, try again" message, **don't forget to configure your authorized domains in back-office.**
+
 ## Development
 
 See [How to contribute](CONTRIBUTING.md).
