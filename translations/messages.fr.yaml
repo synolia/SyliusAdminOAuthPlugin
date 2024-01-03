@@ -19,7 +19,7 @@ sylius:
             admin:
                 microsoft_login_button_label: Se connecter avec Microsoft
 
-app.ui.authorized_domains: Domaines Oauth autorisés
+app.ui.authorized_domains_title: Domaines Oauth autorisés
 app.ui.authorized_domains.menu_label: Domaines Oauth
 app.ui.authorized_domains_subheader: Gestion des domaines de connexion Oauth
 app.ui.new_authorized_domain: Nouveau domaine de connexion Oauth
