@@ -1,6 +1,6 @@
 [![License](https://img.shields.io/packagist/l/synolia/sylius-admin-oauth-plugin.svg)](https://github.com/synolia/SyliusAdminOauthPlugin/blob/main/LICENSE)
-[![CI - Analysis](https://github.com/synolia/SyliusAdminOAuthPlugin/actions/workflows/analysis.yaml/badge.svg?branch=master)](https://github.com/synolia/SyliusAdminOAuthPlugin/actions/workflows/analysis.yaml)
-[![CI - Sylius](https://github.com/synolia/SyliusAdminOAuthPlugin/actions/workflows/sylius.yaml/badge.svg?branch=master)](https://github.com/synolia/SyliusAdminOAuthPlugin/actions/workflows/sylius.yaml)
+[![CI - Analysis](https://github.com/synolia/SyliusAdminOAuthPlugin/actions/workflows/analysis.yaml/badge.svg?branch=main)](https://github.com/synolia/SyliusAdminOAuthPlugin/actions/workflows/analysis.yaml)
+[![CI - Sylius](https://github.com/synolia/SyliusAdminOAuthPlugin/actions/workflows/sylius.yaml/badge.svg?branch=main)](https://github.com/synolia/SyliusAdminOAuthPlugin/actions/workflows/sylius.yaml)
 [![Version](https://img.shields.io/packagist/v/synolia/sylius-admin-oauth-plugin.svg)](https://packagist.org/packages/synolia/sylius-admin-oauth-plugin)
 [![Total Downloads](https://poser.pugx.org/synolia/sylius-admin-oauth-plugin/downloads)](https://packagist.org/packages/synolia/sylius-admin-oauth-plugin)
 
