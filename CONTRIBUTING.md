@@ -47,14 +47,8 @@ $ make reset
 
 ### Opening Sylius with your plugin
 
-- Using `test` environment:
 
-    ```bash
-    $ (cd tests/Application && bin/console server:run -d public -e test)
-    ```
 
-- Using `dev` environment:
-
-    ```bash
-    $ (cd tests/Application && bin/console server:run -d public -e dev)
-    ```
+```bash
+$ (cd tests/Application && symfony server:start --dir=public)
+```
