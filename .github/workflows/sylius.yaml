@@ -2,7 +2,7 @@ name: Install & Test
 'on':
     push:
         branches:
-            - master
+            - main
         paths-ignore:
             - README.md
     pull_request:
