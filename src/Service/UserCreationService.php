@@ -17,7 +17,8 @@ final class UserCreationService
         private EntityManagerInterface $entityManager,
         private RepositoryInterface $adminUserRepository,
         private DomainInformationsResolver $domainInformationsResolver
-    ) {}
+    ) {
+    }
 
     public function create(AzureResourceOwner|GoogleUser $user): ?AdminUser
     {
