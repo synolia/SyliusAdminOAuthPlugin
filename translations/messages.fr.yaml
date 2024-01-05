@@ -7,21 +7,23 @@ sylius:
         domain_error: Impossible de se connecter, merci de réessayer.
         authentication_failure: La connexion a échouée, veuillez réessayer.
     ui:
+        authorized_domains:
+            menu_label: Domaines Oauth autorisés
         true_label: oui
         false_label: non
         is_enabled: Activé
         admin:
             menu:
-                oauth_submenu_label: Domaines autorisés
+                oauth_submenu_label: Domaines Oauth autorisés
         authentication:
             admin:
                 microsoft_login_button_label: Se connecter avec Microsoft
 
-app:
-    ui:
-        authorized_domains: Domaines autorisés
-        authorized_domains_subheader: Gestion des domaines de connexion
-    form:
-        authorized_domains:
-            name: Nom
-            authorize: Autorisé
+app.ui.authorized_domains_title: Domaines Oauth autorisés
+app.ui.authorized_domains.menu_label: Domaines Oauth
+app.ui.authorized_domains_subheader: Gestion des domaines de connexion Oauth
+app.ui.new_authorized_domain: Nouveau domaine de connexion Oauth
+
+app.form.authorized_domains:
+    name: Nom
+    authorize: Autorisé

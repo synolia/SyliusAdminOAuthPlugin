@@ -13,6 +13,7 @@ app_admin_authorized_domain:
         grid: app_admin_authorized_domain
         vars:
             all:
+                header: app.ui.authorized_domains_title
                 subheader: app.ui.authorized_domains_subheader
             index:
                 icon: 'file image outline'

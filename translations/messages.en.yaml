@@ -12,15 +12,16 @@ sylius:
         is_enabled: Enabled
         admin:
             menu:
-                oauth_submenu_label: Authorized domains
+                oauth_submenu_label: Oauth authorized domains
     authentication:
         admin:
             microsoft_login_button_label: Sign in with Microsoft
-app:
-    ui:
-        authorized_domains: Authorized domains
-        authorized_domains_subheader: Domain connexion management
-    form:
-        authorized_domains:
-            name: Name
-            authorize: Authorized
+
+app.ui.authorized_domains_title: Oauth authorized domains
+app.ui.authorized_domains.menu_label: Oauth Domain
+app.ui.authorized_domains_subheader: Oauth domain connexion management
+app.ui.new_authorized_domain: New Oauth domain connexion
+
+app.form.authorized_domains:
+    name: Name
+    authorize: Authorized
