@@ -1,6 +1,6 @@
 [![License](https://img.shields.io/packagist/l/synolia/sylius-admin-oauth-plugin.svg)](https://github.com/synolia/SyliusAdminOauthPlugin/blob/main/LICENSE)
-![Tests](https://github.com/synolia/SyliusAdminOauthPlugin/workflows/CI/badge.svg?branch=main)
-[![Version](https://img.shields.io/packagist/v/synolia/sylius-admin-oauth-plugin.svg)](https://packagist.org/packages/synolia/sylius-admin-oauth-plugin)
+[![CI - Analysis](https://github.com/synolia/SyliusAdminOAuthPlugin/actions/workflows/analysis.yaml/badge.svg?branch=master)](https://github.com/synolia/SyliusAdminOAuthPlugin/actions/workflows/analysis.yaml)
+[![CI - Sylius](https://github.com/synolia/SyliusAdminOAuthPlugin/actions/workflows/sylius.yaml/badge.svg?branch=master)](https://github.com/synolia/SyliusAdminOAuthPlugin/actions/workflows/sylius.yaml)[![Version](https://img.shields.io/packagist/v/synolia/sylius-admin-oauth-plugin.svg)](https://packagist.org/packages/synolia/sylius-admin-oauth-plugin)
 [![Total Downloads](https://poser.pugx.org/synolia/sylius-admin-oauth-plugin/downloads)](https://packagist.org/packages/synolia/sylius-admin-oauth-plugin)
 
 <p align="center">
@@ -11,21 +11,21 @@
 
 <h1 align="center">Synolia SyliusAdminOauthPlugin</h1>
 
-<p align="center">oauth for sylius admin</p>
+<p align="center">Add OAuth authentication at Sylius admin panel</p>
 
 ## Features
 
-* Allow your admin users to subscribe and sign in with Oauth providers :
+* Allow your admin users to subscribe and sign in with OAuth providers :
     * Google
     * Microsoft
 * Allow domain connexion management.
 
 ## Requirements
 
-|        | Version  |
-|:-------|:---------|
-| PHP    | ^8.0     |
-| Sylius | ^1.10    |
+|        | Version |
+|:-------|:--------|
+| PHP    | ^8.1    |
+| Sylius | ^1.10   |
 
 ## Installation
 
@@ -41,7 +41,7 @@
     OAUTH_MICROSOFT_CLIENT_ID=
     OAUTH_MICROSOFT_CLIENT_SECRET=
     ```
-3. In your security.yaml, add the Oauth authenticator in your admin firewall and put access_control paths you need depending on wich provider you use. **They must be on top of the others** :
+3. In your security.yaml, add the OAuth authenticator in your admin firewall and put access_control paths you need depending on wich provider you use. **They must be on top of the others** :
     ```yaml
     security:
       enable_authenticator_manager: true
@@ -81,13 +81,13 @@
          use CustomAdminUserTrait;
     }
     ```
-7. Run migration to give google_id and hosted_domain to your admin user entity and create Authorized domain table:
+7. Apply migrations to your database:
    ```shell
     php bin/console doctrine:migrations:migrate
    ```
 
-8. After the first installation, no domain is configured so you have to add one to be able to connect with oauth.
-   If you allready have admin users, add one through the administration panel and authorize it. You can access it through oauth domain administration section in the menu.
+8. After the first installation, no domain is configured so you have to add one to be able to connect with OAuth.
+   If you allready have admin users, add one through the administration panel and authorize it. You can access it through OAuth domain administration section in the menu.
 
 
 
@@ -97,7 +97,7 @@ Full documentation here :
 * Microsoft : https://learn.microsoft.com/en-en/azure/active-directory/architecture/auth-oauth2
 
 
-You can now connect to your accounts with Oauth in the admin login pannel !
+You can now connect to your accounts with OAuth in the admin login pannel !
 
 ## Development
 

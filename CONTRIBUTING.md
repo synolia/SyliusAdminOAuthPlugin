@@ -20,29 +20,16 @@ in `install/Application/.env.local` and/or `install/Application/.env.test.local`
 $ make install -e SYLIUS_VERSION=XX SYMFONY_VERSION=YY PHP_VERSION=ZZ
 ```
 
-Default values : XX=1.12.0 and YY=6.1 and ZZ=8.1
+Default values : XX=1.12.0 and YY=6.3 and ZZ=8.2
 
 :information_source: To reset (drop database and delete files) test environment:
 ```bash
 $ make reset
 ```
 
-### PHPUnit
+## Usage
 
-After setup your environment, you can run the PHPUnit tests
-
-```bash
-$ make phpunit
-```
-
-### Opening Sylius with your plugin
-
-Yon can also see Sylius with this plugin by pointing your browser to _ThisPlugin_/tests/Application/public/index.php
-
-
-## Other
-
-### Running code analyse
+### Running code analyse and tests
 
 - GrumPHP (see configuration [grumphp.yml](grumphp.yml).)
 
@@ -52,9 +39,13 @@ Yon can also see Sylius with this plugin by pointing your browser to _ThisPlugin
   $ make grumphp
   ```
 
-### Run a server
+- PHPUnit
 
-If you don't have a Docker environment or a local server, you can use the Symfony server to run Sylius.
+  ```bash
+  $ make phpunit
+  ```
+
+### Opening Sylius with your plugin
 
 - Using `test` environment:
 
