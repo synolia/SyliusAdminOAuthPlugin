@@ -1,7 +1,7 @@
 {% if microsoft_client_id is not null %}
     <div style="margin: 0.5rem 0 0.5rem 0; align-items: center">
         <button style="padding:8px; background-color: white; width: 100%; border: 1px lightgray solid; border-radius: 4px; height: 2.8rem;" disabled>
-            <a href="{{ path('connect_azure') }}" style="width: 100%; display: flex; color: black; font-size: 1rem; justify-content: center; font-weight: lighter">
+            <a href="{{ path('connect_admin_azure') }}" style="width: 100%; display: flex; color: black; font-size: 1rem; justify-content: center; font-weight: lighter">
                 <img style="margin-right: .5rem;" src="https://learn.microsoft.com/fr-fr/azure/active-directory/develop/media/howto-add-branding-in-apps/ms-symbollockup_mssymbol_19.png" alt="microsoft icon">
                 <span style="">{{ "sylius.authentication.admin.microsoft_login_button_label"|trans }}</span>
             </a>

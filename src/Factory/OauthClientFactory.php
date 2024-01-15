@@ -30,8 +30,8 @@ final class OauthClientFactory
     {
         return self::create(
             $googleClientId,
-            'google_main',
-            'connect_google_check',
+            'google_admin',
+            'connect_admin_google_check',
             'google',
             'sylius.google_authentication.authentication_failure'
         );
@@ -41,8 +41,8 @@ final class OauthClientFactory
     {
         return self::create(
             $microsoftClientId,
-            'azure_main',
-            'connect_microsoft_check',
+            'azure_admin',
+            'connect_admin_microsoft_check',
             'microsoft',
             'sylius.microsoft_authentication.authentication_failure'
         );

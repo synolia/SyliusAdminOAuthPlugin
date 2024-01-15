@@ -13,17 +13,17 @@ twig:
         
 knpu_oauth2_client:
     clients:
-        google_main:
+        google_admin:
             type: google
             client_id: '%env(default::OAUTH_GOOGLE_CLIENT_ID)%'
             client_secret: '%env(default::OAUTH_GOOGLE_CLIENT_SECRET)%'
-            redirect_route: 'connect_google_check'
+            redirect_route: 'connect_admin_google_check'
             redirect_params: {}
-        azure_main:
+        azure_admin:
             type: azure
             client_id: '%env(default::OAUTH_MICROSOFT_CLIENT_ID)%'
             client_secret: '%env(default::OAUTH_MICROSOFT_CLIENT_SECRET)%'
-            redirect_route: 'connect_microsoft_check'
+            redirect_route: 'connect_admin_microsoft_check'
             redirect_params: {}
 
 #TODO: a faire dans le plugin

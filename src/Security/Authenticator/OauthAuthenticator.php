@@ -75,12 +75,12 @@ final class OauthAuthenticator extends OAuth2Authenticator
             new UserBadge($accessToken->getToken(), function () use ($user) {
                 Assert::isInstanceOf($this->oauthClient, OauthClient::class);
                 $domains = $this->authorizedDomainRepository->findBy(['isEnabled' => true]);
-                // If there's no domains -> first use of the plugin -> connect
+                // If there's no domains, login with plugin is disabled...
                 if (0 === \count($domains)) {
                     $translatedMessage = $this->translator->trans('sylius.oauth_authentication.no_configured_domain');
                     throw new AuthenticationException($translatedMessage);
                 }
-                // Else connect compared to authorized domains
+                // ...else connect compared to authorized domains
                 foreach ($domains as $domain) {
                     if (\array_key_exists($this->oauthClient->getProviderName(), $this->providers->availableProvidersAndControllers)) {
                         return $this->createOauthUserIfDomainCorrespond($user, $domain);

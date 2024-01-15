@@ -12,16 +12,16 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class MicrosoftController extends AbstractController
 {
-    #[Route('connect/microsoft', name: 'connect_azure')]
+    #[Route('/connect/microsoft', name: 'connect_admin_azure')]
     public function connectAction(ClientRegistry $clientRegistry): RedirectResponse
     {
-        return $clientRegistry->getClient('azure_main')->redirect([], []);
+        return $clientRegistry->getClient('azure_admin')->redirect([], []);
     }
 
     /**
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    #[Route('/connect/microsoft/check', name: 'connect_microsoft_check')]
+    #[Route('/connect/microsoft/check', name: 'connect_admin_microsoft_check')]
     public function connectCheckAction(Request $request): void
     {
         // ** if you want to *authenticate* the user, then
