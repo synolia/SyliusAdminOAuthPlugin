@@ -12,10 +12,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class GoogleController extends AbstractController
 {
-    #[Route('/connect/google', name: 'connect_google')]
+    #[Route('/connect/google', name: 'connect_admin_google')]
     public function connectAction(ClientRegistry $clientRegistry): RedirectResponse
     {
-        return $clientRegistry->getClient('google_main')->redirect([], []);
+        return $clientRegistry->getClient('google_admin')->redirect([], []);
     }
 
     /**
@@ -25,7 +25,7 @@ final class GoogleController extends AbstractController
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    #[Route('/connect/google/check', name: 'connect_google_check')]
+    #[Route('/connect/google/check', name: 'connect_admin_google_check')]
     public function connectCheckAction(Request $request): void
     {
         // ** if you want to *authenticate* the user, then

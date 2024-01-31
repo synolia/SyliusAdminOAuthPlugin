@@ -1,12 +1,10 @@
-{#TODO: ecrire les features du plugin dans le readme + changer les badges (license : branche master -> main) !!!!#}
-
 {% if google_client_id is not null %}
     <div style="margin: 0.5rem 0 0.5rem 0">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
     <div id="g_id_onload"
          data-client_id="{{ google_client_id }}"
-         data-login_uri="{{ path('connect_google') }}">
+         data-login_uri="{{ path('connect_admin_google') }}">
     </div>
     <div class="g_id_signin"
          data-type="standard"
