@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Synolia\SyliusAdminOauthPlugin\Repository\AuthorizedDomainRepository;
 
-#[ORM\Table(name: 'authorized_domain')]
+#[ORM\Table(name: 'synolia_authorized_domain')]
 #[ORM\Entity(repositoryClass: AuthorizedDomainRepository::class)]
 class AuthorizedDomain implements ResourceInterface
 {

@@ -20,12 +20,12 @@ final class Version20240221095851 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE AuthorizedDomain RENAME TO authorized_domain ');
+        $this->addSql('ALTER TABLE AuthorizedDomain RENAME TO synolia_authorized_domain ');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE authorized_domain RENAME TO AuthorizedDomain ');
+        $this->addSql('ALTER TABLE synolia_authorized_domain RENAME TO AuthorizedDomain ');
     }
 }
