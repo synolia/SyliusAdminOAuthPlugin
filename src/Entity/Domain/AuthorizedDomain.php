@@ -20,7 +20,7 @@ class AuthorizedDomain implements ResourceInterface
     #[ORM\Column(type: 'string', nullable: false)]
     private string $name;
 
-    #[ORM\Column(type: 'boolean')]
+    #[ORM\Column(name: 'is_enabled', type: 'boolean')]
     private bool $isEnabled = false;
 
     /**
