@@ -71,10 +71,10 @@ ifneq ("$(wildcard tests/data)","")
 	cp -r tests/data/* ${TEST_DIRECTORY}/
 endif
 
-	echo "OAUTH_GOOGLE_CLIENT_ID=" >>  ${TEST_DIRECTORY}/.env
-	echo "OAUTH_GOOGLE_CLIENT_SECRET=" >>  ${TEST_DIRECTORY}/.env
-	echo "OAUTH_MICROSOFT_CLIENT_ID=" >>  ${TEST_DIRECTORY}/.env
-	echo "OAUTH_MICROSOFT_CLIENT_SECRET=" >>  ${TEST_DIRECTORY}/.env
+	echo "SYNOLIA_ADMIN_OAUTH_GOOGLE_CLIENT_ID=" >>  ${TEST_DIRECTORY}/.env
+	echo "SYNOLIA_ADMIN_OAUTH_GOOGLE_CLIENT_SECRET=" >>  ${TEST_DIRECTORY}/.env
+	echo "SYNOLIA_ADMIN_OAUTH_MICROSOFT_CLIENT_ID=" >>  ${TEST_DIRECTORY}/.env
+	echo "SYNOLIA_ADMIN_OAUTH_MICROSOFT_CLIENT_SECRET=" >>  ${TEST_DIRECTORY}/.env
 
 install-sylius:
 	${CONSOLE} doctrine:database:create --if-not-exists
