@@ -111,7 +111,7 @@ jobs:
                 if: 'always() && steps.end-of-setup-sylius.outcome == ''success'''
         services:
             mariadb:
-                image: 'mariadb:10.4.11'
+                image: 'mariadb:10.11'
                 ports:
                     - '3306:3306'
                 env:

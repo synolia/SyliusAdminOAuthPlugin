@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Synolia\SyliusAdminOauthPlugin\Repository\AuthorizedDomainRepository;
 
+#[ORM\Table(name: 'synolia_authorized_domain')]
 #[ORM\Entity(repositoryClass: AuthorizedDomainRepository::class)]
 class AuthorizedDomain implements ResourceInterface
 {
@@ -19,7 +20,7 @@ class AuthorizedDomain implements ResourceInterface
     #[ORM\Column(type: 'string', nullable: false)]
     private string $name;
 
-    #[ORM\Column(type: 'boolean')]
+    #[ORM\Column(name: 'is_enabled', type: 'boolean')]
     private bool $isEnabled = false;
 
     /**
