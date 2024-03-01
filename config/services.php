@@ -34,7 +34,7 @@ return function (ContainerConfigurator $containerConfigurator) {
         ])
         ->load('Synolia\SyliusAdminOauthPlugin\Security\Authenticator\\', '../src/Security/Authenticator')
         ->args([
-            '$googleClientId' => '%env(default::OAUTH_GOOGLE_CLIENT_ID)%',
-            '$microsoftClientId' => '%env(default::OAUTH_MICROSOFT_CLIENT_ID)%',
+            '$googleClientId' => '%env(default::SYNOLIA_ADMIN_OAUTH_GOOGLE_CLIENT_ID)%',
+            '$microsoftClientId' => '%env(default::SYNOLIA_ADMIN_OAUTH_MICROSOFT_CLIENT_ID)%',
         ]);
 };

@@ -36,11 +36,11 @@
     ```
 2. Write your Google and/or Microsoft client Id and client secret in you .env file with those keys :
     ```dotenv
-    OAUTH_GOOGLE_CLIENT_ID=
-    OAUTH_GOOGLE_CLIENT_SECRET=
+    SYNOLIA_ADMIN_OAUTH_GOOGLE_CLIENT_ID=
+    SYNOLIA_ADMIN_OAUTH_GOOGLE_CLIENT_SECRET=
 
-    OAUTH_MICROSOFT_CLIENT_ID=
-    OAUTH_MICROSOFT_CLIENT_SECRET=
+    SYNOLIA_ADMIN_OAUTH_MICROSOFT_CLIENT_ID=
+    SYNOLIA_ADMIN_OAUTH_MICROSOFT_CLIENT_SECRET=
     ```
 3. In your security.yaml, add the OAuth authenticator in your admin firewall and put access_control paths you need depending on wich provider you use. **They must be on top of the others** :
     ```yaml
