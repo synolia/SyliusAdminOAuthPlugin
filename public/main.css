@@ -1,0 +1,26 @@
+.oAuthButtonBlock {
+    margin: 0.5rem 0 0.5rem 0;
+    align-items: center;
+}
+
+.microsoftOAuth button {
+    padding:8px;
+    background-color: white;
+    width: 100%;
+    border: 1px lightgray solid;
+    border-radius: 4px;
+    height: 2.8rem;
+}
+
+.microsoftOAuth a {
+    width: 100%;
+    display: flex;
+    color: black;
+    font-size: 1rem;
+    justify-content: center;
+    font-weight: lighter;
+}
+
+.microsoftOAuth img {
+    margin-right: .5rem;
+}
