@@ -34,6 +34,9 @@ jobs:
                     -
                         sylius: 1.11.0
                         symfony: 6.3
+                    -
+                        sylius: 1.12.0
+                        symfony: 5.4
         env:
             APP_ENV: test
             package-name: synolia/sylius-admin-oauth-plugin
