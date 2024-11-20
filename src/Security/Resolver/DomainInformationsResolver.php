@@ -35,7 +35,7 @@ final class DomainInformationsResolver
         }
 
         /** @var AdminUser $newUser */
-        $newUser = AdminUserFactory::createByGoogleAccount($user);
+        $newUser = AdminUserFactory::createByGoogleAccount($user, $this->localeContext->getLocaleCode());
 
         return [
             GoogleUser::class => [

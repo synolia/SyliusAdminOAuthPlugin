@@ -10,7 +10,7 @@ use TheNetworg\OAuth2\Client\Provider\AzureResourceOwner;
 
 final class AdminUserFactory
 {
-    public static function createByGoogleAccount(GoogleUser $googleUser): customAdminUser
+    public static function createByGoogleAccount(GoogleUser $googleUser, string $locale): customAdminUser
     {
         $user = new customAdminUser();
         $user->setEmail($googleUser->getEmail());
@@ -21,7 +21,7 @@ final class AdminUserFactory
         $user->setHostedDomain($googleUser->getHostedDomain());
         $user->setEnabled(true);
         $user->setCreatedAt(new \DateTimeImmutable('now'));
-        $user->setLocaleCode($googleUser->getLocale());
+        $user->setLocaleCode($locale);
         /** @var string|null $googleId */
         $googleId = $googleUser->getId();
         $user->setGoogleId($googleId);
