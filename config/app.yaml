@@ -2,7 +2,7 @@ sylius_twig_hooks:
     hooks:
         sylius_admin.security.login.page.content:
             template: 
-                template: '@SynoliaSyliusAdminOauthPlugin/login_template.html.twig'
+                template: '@SynoliaSyliusAdminOauthPlugin/oauth_template.html.twig'
 twig:
     globals:
         google_client_id: '%env(default::SYNOLIA_ADMIN_OAUTH_GOOGLE_CLIENT_ID)%'
@@ -32,14 +32,24 @@ sylius_resource:
                 repository: Synolia\SyliusAdminOauthPlugin\Repository\AuthorizedDomainRepository
                 form: Synolia\SyliusAdminOauthPlugin\Form\Type\AuthorizedDomainType
 
+# TODO: fix "Place "1" is not valid for workflow "authorized_domain_graph"
 framework:
     workflows:
-        app_authorized_domain:
-            supports: 'Synolia\SyliusAdminOauthPlugin\Entity\Domain\AuthorizedDomain'
+         !php/const Synolia\SyliusAdminOauthPlugin\Entity\Domain\AuthorizedDomain::GRAPH:
+            type: state_machine
+            marking_store:
+                type: method
+                property: isEnabled
+            supports: 
+                - Synolia\SyliusAdminOauthPlugin\Entity\Domain\AuthorizedDomain
+            initial_marking: !php/const Synolia\SyliusAdminOauthPlugin\Entity\Domain\AuthorizedDomain::STATE_NOT_ENABLED
+            places:
+                - !php/const Synolia\SyliusAdminOauthPlugin\Entity\Domain\AuthorizedDomain::STATE_ENABLED
+                - !php/const Synolia\SyliusAdminOauthPlugin\Entity\Domain\AuthorizedDomain::STATE_NOT_ENABLED
             transitions:
-                isEnabled:
-                    from: [new]
-                    to: enabled
+                !php/const Synolia\SyliusAdminOauthPlugin\Entity\Domain\AuthorizedDomain::TRANSITION_ENABLE:
+                    from: !php/const Synolia\SyliusAdminOauthPlugin\Entity\Domain\AuthorizedDomain::STATE_NOT_ENABLED
+                    to: !php/const Synolia\SyliusAdminOauthPlugin\Entity\Domain\AuthorizedDomain::STATE_ENABLED
 
 sylius_grid:
     grids:
@@ -82,7 +92,7 @@ sylius_grid:
                                 parameters:
                                     id: resource.id
                             transition: enable
-                            graph: app_authorized_domain
+                            graph: !php/const Synolia\SyliusAdminOauthPlugin\Entity\Domain\AuthorizedDomain::GRAPH
                             class: yellow
                 bulk:
                     delete:

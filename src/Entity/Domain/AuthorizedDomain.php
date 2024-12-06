@@ -12,6 +12,12 @@ use Synolia\SyliusAdminOauthPlugin\Repository\AuthorizedDomainRepository;
 #[ORM\Entity(repositoryClass: AuthorizedDomainRepository::class)]
 class AuthorizedDomain implements ResourceInterface
 {
+    public const GRAPH = 'authorized_domain_graph';
+
+    public const TRANSITION_ENABLE = 'enable';
+    public const STATE_NOT_ENABLED = 'new';
+    public const STATE_ENABLED = 'enabled';
+
     #[ORM\Id()]
     #[ORM\GeneratedValue()]
     #[ORM\Column(type: 'integer')]
@@ -72,7 +78,7 @@ class AuthorizedDomain implements ResourceInterface
     /**
      * @return bool
      */
-    public function isEnabled(): bool
+    public function getIsEnabled(): bool
     {
         return $this->isEnabled;
     }
