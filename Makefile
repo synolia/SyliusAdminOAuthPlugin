@@ -6,7 +6,7 @@ CONSOLE=cd tests/Application && php bin/console -e test
 COMPOSER=cd tests/Application && composer
 YARN=cd tests/Application && yarn
 
-SYLIUS_VERSION=1.12.0
+SYLIUS_VERSION=2.0.0
 SYMFONY_VERSION=6.3
 PHP_VERSION=8.2
 PLUGIN_NAME=synolia/sylius-admin-oauth-plugin
@@ -32,7 +32,7 @@ phpunit: phpunit-configure phpunit-run ## Run PHPUnit
 ### OTHER
 ### ¯¯¯¯¯¯
 
-sylius: sylius-standard update-dependencies install-plugin install-sylius
+sylius: sylius-standard install-plugin install-sylius
 .PHONY: sylius
 
 sylius-standard:

@@ -8,7 +8,7 @@ app_admin_authorized_domain:
     resource: |
         alias: app.authorized_domain
         section: admin
-        templates: "@SyliusAdmin\\Crud"
+        templates: "@SyliusAdmin\\shared\\crud"
         redirect: index
         grid: app_admin_authorized_domain
         vars:

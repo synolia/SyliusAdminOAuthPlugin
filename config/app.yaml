@@ -1,11 +1,8 @@
-sylius_ui:
-    events:
-        sylius.admin.login.form.content:
-            blocks:
-                alerts: '@SynoliaSyliusAdminOauthPlugin/alerts.html.twig'
-                google_oauth_button: '@SynoliaSyliusAdminOauthPlugin/google_auth_button.html.twig'
-                microsoft_oauth_button: '@SynoliaSyliusAdminOauthPlugin/microsoft_auth_button.html.twig'
-
+sylius_twig_hooks:
+    hooks:
+        sylius_admin.security.login.page.content:
+            template: 
+                template: '@SynoliaSyliusAdminOauthPlugin/login_template.html.twig'
 twig:
     globals:
         google_client_id: '%env(default::SYNOLIA_ADMIN_OAUTH_GOOGLE_CLIENT_ID)%'
@@ -35,19 +32,15 @@ sylius_resource:
                 repository: Synolia\SyliusAdminOauthPlugin\Repository\AuthorizedDomainRepository
                 form: Synolia\SyliusAdminOauthPlugin\Form\Type\AuthorizedDomainType
 
-winzou_state_machine:
-    app_authorized_domain:
-        class: "%app.model.authorized_domain.class%"
-        property_path: isEnabled
-        graph: app_authorized_domain
-        state_machine_class: "%sylius.state_machine.class%"
-        states:
-            new: ~
-            enabled: ~
-        transitions:
-            enable:
-                from: [new]
-                to: enabled
+framework:
+    workflows:
+        app_authorized_domain:
+            supports: 'Synolia\SyliusAdminOauthPlugin\Entity\Domain\AuthorizedDomain'
+            transitions:
+                isEnabled:
+                    from: [new]
+                    to: enabled
+
 sylius_grid:
     grids:
         app_admin_authorized_domain:
