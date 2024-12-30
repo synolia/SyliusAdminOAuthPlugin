@@ -7,7 +7,9 @@ namespace Synolia\SyliusAdminOauthPlugin\Security\Authenticator;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\OAuth2Authenticator;
 use League\OAuth2\Client\Provider\GoogleUser;
+use League\OAuth2\Client\Token\AccessToken;
 use Sylius\Component\Core\Model\AdminUser;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,25 +36,27 @@ final class OauthAuthenticator extends OAuth2Authenticator
     private ?string $provider = null;
 
     public function __construct(
-        private ClientRegistry $clientRegistry,
-        private TranslatorInterface $translator,
-        private RouterInterface $router,
-        private UserCreationService $userCreationService,
-        private AuthorizedDomainRepository $authorizedDomainRepository,
-        private Providers $providers,
-        private ?string $googleClientId,
-        private ?string $microsoftClientId
+        private readonly ClientRegistry $clientRegistry,
+        private readonly TranslatorInterface $translator,
+        private readonly RouterInterface $router,
+        private readonly UserCreationService $userCreationService,
+        private readonly AuthorizedDomainRepository $authorizedDomainRepository,
+        private readonly Providers $providers,
+        #[Autowire(env: 'default::SYNOLIA_ADMIN_OAUTH_GOOGLE_CLIENT_ID')]
+        private readonly ?string $googleClientId,
+        #[Autowire(env: 'default::SYNOLIA_ADMIN_OAUTH_MICROSOFT_CLIENT_ID')]
+        private readonly ?string $microsoftClientId,
     ) {
     }
 
     /**
      * {@inheritdoc}
      */
-    public function supports(Request $request): ?bool
+    public function supports(Request $request): bool
     {
         $this->getOauthClient($request);
 
-        if (null === $this->oauthClient) {
+        if (!$this->oauthClient instanceof OauthClient) {
             return false;
         }
 
@@ -66,6 +70,7 @@ final class OauthAuthenticator extends OAuth2Authenticator
     {
         Assert::isInstanceOf($this->oauthClient, OauthClient::class);
         $client = $this->clientRegistry->getClient($this->oauthClient->getName());
+        /** @var AccessToken $accessToken */
         $accessToken = $this->fetchAccessToken($client);
 
         /** @var AzureResourceOwner|GoogleUser $user */
@@ -93,9 +98,9 @@ final class OauthAuthenticator extends OAuth2Authenticator
     }
 
     /**
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * {@inheritdoc}
      */
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): Response
     {
         return new RedirectResponse(
             $this->router->generate('sylius_admin_dashboard')
@@ -103,9 +108,9 @@ final class OauthAuthenticator extends OAuth2Authenticator
     }
 
     /**
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * {@inheritdoc}
      */
-    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?RedirectResponse
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): RedirectResponse
     {
         /** @var Session $session */
         $session = $request->getSession();
@@ -139,7 +144,7 @@ final class OauthAuthenticator extends OAuth2Authenticator
         match ($this->provider) {
             'google' => $this->oauthClient = OauthClientFactory::createGoogleOauthClient((string) $this->googleClientId),
             'microsoft' => $this->oauthClient = OauthClientFactory::createMicrosoftOauthClient((string) $this->microsoftClientId),
-            default => ''
+            default => '',
         };
     }
 
@@ -165,7 +170,7 @@ final class OauthAuthenticator extends OAuth2Authenticator
     }
 
     /**
-     * Get providers from ../Providers.php and define it's name if Oauth controller route matches with it
+     * Get providers from ../Providers.php and define its name if Oauth controller route matches with it
      */
     private function defineProvider(Request $request): void
     {

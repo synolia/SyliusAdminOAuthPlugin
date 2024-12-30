@@ -11,22 +11,22 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Synolia\SyliusAdminOauthPlugin\Security\Resolver\DomainInformationsResolver;
 use TheNetworg\OAuth2\Client\Provider\AzureResourceOwner;
 
-final class UserCreationService
+final readonly class UserCreationService
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
         private RepositoryInterface $adminUserRepository,
-        private DomainInformationsResolver $domainInformationsResolver
+        private DomainInformationsResolver $domainInformationsResolver,
     ) {
     }
 
-    public function create(AzureResourceOwner|GoogleUser $user): ?AdminUser
+    public function create(AzureResourceOwner|GoogleUser $user): AdminUser
     {
         $domainInformation = $this->domainInformationsResolver->getDomainInformations($user);
         $existingUser = $this->getExistingUser($domainInformation, $user);
 
         // 1) have they logged in before ?
-        if (null !== $existingUser) {
+        if ($existingUser instanceof AdminUser) {
             return $existingUser;
         }
 
@@ -34,12 +34,11 @@ final class UserCreationService
         $userToReturn = $this->getEmailMatchingUser($domainInformation, $user);
 
         // 3) register user if its email doesn't exists
-        if (null === $userToReturn) {
+        if (!$userToReturn instanceof AdminUser) {
             /** @var AdminUser */
             return $this->registerUser($domainInformation, $user);
         }
 
-        /** @var AdminUser */
         return $userToReturn;
     }
 
