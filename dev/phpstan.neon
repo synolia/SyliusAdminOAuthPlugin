@@ -1,12 +1,15 @@
 parameters:
+    level: max
     paths:
         - ../src
-    level: max
+        - ../install/Application/src
     reportUnmatchedIgnoredErrors: false
-    checkGenericClassInNonGenericObjectType: false
+    treatPhpDocTypesAsCertain: false
     bootstrapFiles:
         - ../vendor/autoload.php
     excludePaths:
         - '../src/DependencyInjection/Configuration.php'
         - '../src/Factory/AdminUserFactory.php'
-    treatPhpDocTypesAsCertain: false
+    ignoreErrors:
+        - identifier: missingType.iterableValue
+        - identifier: missingType.generics

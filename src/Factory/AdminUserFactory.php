@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Synolia\SyliusAdminOauthPlugin\Factory;
 
-use App\Entity\User\AdminUser as customAdminUser;
 use League\OAuth2\Client\Provider\GoogleUser;
+use Sylius\Component\Core\Model\AdminUser;
 use TheNetworg\OAuth2\Client\Provider\AzureResourceOwner;
 
 final class AdminUserFactory
 {
-    public static function createByGoogleAccount(GoogleUser $googleUser, string $locale): customAdminUser
+    public static function createByGoogleAccount(GoogleUser $googleUser, string $locale): AdminUser
     {
-        $user = new customAdminUser();
+        $user = new AdminUser();
         $user->setEmail($googleUser->getEmail());
         $user->setEmailCanonical($googleUser->getEmail());
         $user->setUsername(self::setUsername($googleUser->getFirstName(), $googleUser->getLastName()));
@@ -29,9 +29,9 @@ final class AdminUserFactory
         return $user;
     }
 
-    public static function createByMicrosoftAccount(AzureResourceOwner $microsoftUser, string $locale): customAdminUser
+    public static function createByMicrosoftAccount(AzureResourceOwner $microsoftUser, string $locale): AdminUser
     {
-        $user = new customAdminUser();
+        $user = new AdminUser();
         $user->setEmail($microsoftUser->getUpn());
         $user->setEmailCanonical($microsoftUser->getUpn());
         $user->setUsername(self::setUsername($microsoftUser->getFirstName(), $microsoftUser->getLastName()));

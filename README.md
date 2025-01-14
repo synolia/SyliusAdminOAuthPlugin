@@ -25,8 +25,8 @@
 
 |        | Version |
 |:-------|:--------|
-| PHP    | ^8.1    |
-| Sylius | ^1.10   |
+| PHP    | ^8.2    |
+| Sylius | ^1.12   |
 
 ## Installation
 
@@ -34,7 +34,7 @@
     ```shell
     $ composer require synolia/sylius-admin-oauth-plugin
     ```
-2. Write your Google and/or Microsoft client Id and client secret in you .env file with those keys :
+2. Write your Google and/or Microsoft client ID and client secret in you .env file with those keys :
     ```dotenv
     SYNOLIA_ADMIN_OAUTH_GOOGLE_CLIENT_ID=
     SYNOLIA_ADMIN_OAUTH_GOOGLE_CLIENT_SECRET=
@@ -52,10 +52,10 @@
                 - Synolia\SyliusAdminOauthPlugin\Security\Authenticator\OauthAuthenticator
     
       access_control:
-        - { path: "%sylius.security.admin_regex%/connect/google",       role: PUBLIC_ACCESS, requires_channel: https }
+        - { path: "%sylius.security.admin_regex%/connect/google", role: PUBLIC_ACCESS, requires_channel: https }
         - { path: "%sylius.security.admin_regex%/connect/google/check", role: PUBLIC_ACCESS, requires_channel: https }
    
-        - { path: "%sylius.security.admin_regex%/connect/microsoft",       role: PUBLIC_ACCESS, requires_channel: https }
+        - { path: "%sylius.security.admin_regex%/connect/microsoft", role: PUBLIC_ACCESS, requires_channel: https }
         - { path: "%sylius.security.admin_regex%/connect/microsoft/check", role: PUBLIC_ACCESS, requires_channel: https }
     ```
 
@@ -88,19 +88,19 @@
    ```
 
 8. After the first installation, no domain is configured so you have to add one to be able to connect with OAuth.
-   If you allready have admin users, add one through the administration panel and authorize it. You can access it through OAuth domain administration section in the menu.
+   If you already have admin users, add one through the administration panel and authorize it. You can access it through OAuth domain administration section in the menu.
 
 
 
 Don't forget to add your Allowed redirect URIs in Google cloud console or Azure Active Directory !
 Full documentation here : 
-* Google : https://cloud.google.com/looker/docs/admin-panel-authentication-google 
-* Microsoft : https://learn.microsoft.com/en-en/azure/active-directory/architecture/auth-oauth2
+* Google: https://cloud.google.com/looker/docs/admin-panel-authentication-google 
+* Microsoft: https://learn.microsoft.com/en-en/azure/active-directory/architecture/auth-oauth2
 
 
-You can now connect to your accounts with OAuth in the admin login pannel !
+You can now connect to your accounts with OAuth in the admin login panel !
 
-## Troubleshootings
+## Troubleshooting
 
 - Error 'TOO_MANY_REDIRECT' : add these two lines
   - services.yaml:

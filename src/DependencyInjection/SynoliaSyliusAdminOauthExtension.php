@@ -9,7 +9,7 @@ use Sylius\Bundle\ResourceBundle\DependencyInjection\Extension\AbstractResourceE
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
-use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 final class SynoliaSyliusAdminOauthExtension extends AbstractResourceExtension implements PrependExtensionInterface
 {
@@ -17,13 +17,11 @@ final class SynoliaSyliusAdminOauthExtension extends AbstractResourceExtension i
 
     /**
      * {@inheritdoc}
-     *
-     * @param array<mixed> $configs
      */
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $loader = new PhpFileLoader($container, new FileLocator(\dirname(__DIR__, 2) . '/config'));
-        $loader->load('services.php');
+        $loader = new YamlFileLoader($container, new FileLocator(\dirname(__DIR__, 2) . '/config'));
+        $loader->load('services.yaml');
     }
 
     public function prepend(ContainerBuilder $container): void
@@ -33,7 +31,7 @@ final class SynoliaSyliusAdminOauthExtension extends AbstractResourceExtension i
 
     protected function getMigrationsNamespace(): string
     {
-        return 'DoctrineMigrations';
+        return 'Synolia\SyliusAdminOauthPlugin\Migrations';
     }
 
     protected function getMigrationsDirectory(): string
