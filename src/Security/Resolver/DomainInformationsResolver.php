@@ -10,10 +10,10 @@ use Sylius\Component\Locale\Context\LocaleContextInterface;
 use Synolia\SyliusAdminOauthPlugin\Factory\AdminUserFactory;
 use TheNetworg\OAuth2\Client\Provider\AzureResourceOwner;
 
-final class DomainInformationsResolver
+final readonly class DomainInformationsResolver
 {
     public function __construct(
-        private LocaleContextInterface $localeContext
+        private LocaleContextInterface $localeContext,
     ) {
     }
 
@@ -23,25 +23,18 @@ final class DomainInformationsResolver
     public function getDomainInformations(AzureResourceOwner|GoogleUser $user): array
     {
         if ($user instanceof AzureResourceOwner) {
-            /** @var AdminUser $newUser */
-            $newUser = AdminUserFactory::createByMicrosoftAccount($user, $this->localeContext->getLocaleCode());
-
             return [AzureResourceOwner::class => [
                 'propertyName' => 'microsoftId',
                 'userEmail' => $user->getUpn(),
-                'newUser' => $newUser,
-            ],
-            ];
+                'newUser' => AdminUserFactory::createByMicrosoftAccount($user, $this->localeContext->getLocaleCode()),
+            ]];
         }
-
-        /** @var AdminUser $newUser */
-        $newUser = AdminUserFactory::createByGoogleAccount($user, $this->localeContext->getLocaleCode());
 
         return [
             GoogleUser::class => [
                 'propertyName' => 'googleId',
                 'userEmail' => $user->getEmail(),
-                'newUser' => $newUser,
+                'newUser' => AdminUserFactory::createByGoogleAccount($user, $this->localeContext->getLocaleCode()),
             ],
         ];
     }

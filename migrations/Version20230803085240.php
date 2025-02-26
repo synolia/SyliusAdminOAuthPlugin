@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DoctrineMigrations;
+namespace Synolia\SyliusAdminOauthPlugin\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
@@ -19,6 +19,10 @@ final class Version20230803085240 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
+        if ($schema->getTable('sylius_admin_user')->hasColumn('microsoft_id')) {
+            return;
+        }
+
         $this->addSql('ALTER TABLE sylius_admin_user ADD microsoft_id VARCHAR(255) DEFAULT NULL');
     }
 

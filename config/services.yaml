@@ -1,0 +1,8 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Synolia\SyliusAdminOauthPlugin\:
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Entity,SynoliaSyliusAdminOauthPlugin.php}'

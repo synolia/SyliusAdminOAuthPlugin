@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DoctrineMigrations;
+namespace Synolia\SyliusAdminOauthPlugin\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
@@ -20,6 +20,10 @@ final class Version20230519094353 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
+        if ($schema->getTable('sylius_admin_user')->hasColumn('google_id')) {
+            return;
+        }
+
         $this->addSql('ALTER TABLE
           sylius_admin_user
         ADD

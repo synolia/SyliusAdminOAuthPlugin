@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Synolia\SyliusAdminOauthPlugin\Entity\Domain;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Synolia\SyliusAdminOauthPlugin\Repository\AuthorizedDomainRepository;
@@ -12,20 +13,17 @@ use Synolia\SyliusAdminOauthPlugin\Repository\AuthorizedDomainRepository;
 #[ORM\Entity(repositoryClass: AuthorizedDomainRepository::class)]
 class AuthorizedDomain implements ResourceInterface
 {
-    #[ORM\Id()]
-    #[ORM\GeneratedValue()]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: Types::INTEGER)]
     private int $id;
 
-    #[ORM\Column(type: 'string', nullable: false)]
+    #[ORM\Column(type: Types::STRING, nullable: false)]
     private string $name;
 
-    #[ORM\Column(name: 'is_enabled', type: 'boolean')]
+    #[ORM\Column(name: 'is_enabled', type: Types::BOOLEAN)]
     private bool $isEnabled = false;
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
@@ -41,17 +39,11 @@ class AuthorizedDomain implements ResourceInterface
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return AuthorizedDomain
-     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -59,9 +51,6 @@ class AuthorizedDomain implements ResourceInterface
         return $this;
     }
 
-    /**
-     * @return AuthorizedDomain
-     */
     public function setIsEnabled(bool $isEnabled): self
     {
         $this->isEnabled = $isEnabled;
@@ -69,9 +58,6 @@ class AuthorizedDomain implements ResourceInterface
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isEnabled(): bool
     {
         return $this->isEnabled;
