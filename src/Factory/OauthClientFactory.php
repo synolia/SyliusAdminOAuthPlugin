@@ -33,7 +33,7 @@ final class OauthClientFactory
             'google_admin',
             'connect_admin_google_check',
             'google',
-            'sylius.google_authentication.authentication_failure'
+            'synolia.sylius_admin_oauth.google_authentication.authentication_failure'
         );
     }
 
@@ -44,7 +44,7 @@ final class OauthClientFactory
             'azure_admin',
             'connect_admin_microsoft_check',
             'microsoft',
-            'sylius.microsoft_authentication.authentication_failure'
+            'synolia.sylius_admin_oauth.microsoft_authentication.authentication_failure'
         );
     }
 }

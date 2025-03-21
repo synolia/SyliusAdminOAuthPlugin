@@ -4,17 +4,18 @@ controllers:
         namespace: Synolia\SyliusAdminOauthPlugin\Controller
     type: attribute
     
-app_admin_authorized_domain:
+synolia_admin_oauth_authorized_domain:
     resource: |
-        alias: app.authorized_domain
+        alias: synolia_admin_oauth.authorized_domain
         section: admin
         templates: "@SyliusAdmin\\Crud"
         redirect: index
-        grid: app_admin_authorized_domain
+        grid: synolia_admin_oauth_authorized_domain
         vars:
             all:
-                header: app.ui.authorized_domains_title
-                subheader: app.ui.authorized_domains_subheader
+                header: synolia.sylius_admin_oauth.ui.authorized_domains.title
+                subheader: synolia.sylius_admin_oauth.ui.authorized_domains.subheader
+                breadcrumb: synolia.sylius_admin_oauth.ui.authorized_domains.menu_label
             index:
                 icon: 'file image outline'
     type: sylius.resource

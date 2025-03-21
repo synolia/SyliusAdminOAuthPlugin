@@ -17,8 +17,8 @@ final class AdminMenuListener
         $newSubmenu = $menu->getChild('configuration');
 
         $newSubmenu
-            ?->addChild('authorized_domain', ['route' => 'app_admin_authorized_domain_index'])
-            ->setLabel('sylius.ui.admin.menu.oauth_submenu_label')
+            ?->addChild('authorized_domain', ['route' => 'synolia_admin_oauth_admin_authorized_domain_index'])
+            ->setLabel('synolia.sylius_admin_oauth.ui.admin.menu.oauth_submenu_label')
             ->setLabelAttribute('icon', 'cube')
         ;
     }

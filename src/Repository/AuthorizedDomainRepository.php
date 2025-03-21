@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Synolia\SyliusAdminOauthPlugin\Repository;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Synolia\SyliusAdminOauthPlugin\Entity\Domain\AuthorizedDomain;
 
@@ -15,6 +16,11 @@ use Synolia\SyliusAdminOauthPlugin\Entity\Domain\AuthorizedDomain;
  */
 final class AuthorizedDomainRepository extends EntityRepository
 {
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        parent::__construct($entityManager, $entityManager->getClassMetadata(AuthorizedDomain::class));
+    }
+
     public function save(AuthorizedDomain $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);

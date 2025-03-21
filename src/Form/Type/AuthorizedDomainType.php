@@ -29,16 +29,16 @@ final class AuthorizedDomainType extends AbstractResourceType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'app.form.authorized_domains.name',
+                'label' => 'synolia.sylius_admin_oauth.form.authorized_domains.name',
             ])
-            ->add('isEnabled', CheckboxType::class, [
-                'label' => 'app.form.authorized_domains.authorize',
+            ->add('enabled', CheckboxType::class, [
+                'label' => 'synolia.sylius_admin_oauth.form.authorized_domains.authorize',
             ])
         ;
     }
 
     public function getBlockPrefix(): string
     {
-        return 'authorized_domain';
+        return 'synolia_admin_oauth_authorized_domain';
     }
 }

@@ -16,7 +16,7 @@ class AuthorizedDomain implements ResourceInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER)]
-    private int $id;
+    private ?int $id = null;
 
     #[ORM\Column(type: Types::STRING, nullable: false)]
     private string $name;
@@ -24,7 +24,7 @@ class AuthorizedDomain implements ResourceInterface
     #[ORM\Column(name: 'is_enabled', type: Types::BOOLEAN)]
     private bool $isEnabled = false;
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -51,7 +51,7 @@ class AuthorizedDomain implements ResourceInterface
         return $this;
     }
 
-    public function setIsEnabled(bool $isEnabled): self
+    public function setEnabled(bool $isEnabled): self
     {
         $this->isEnabled = $isEnabled;
 

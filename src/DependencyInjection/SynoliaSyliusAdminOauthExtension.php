@@ -10,6 +10,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Synolia\SyliusAdminOauthPlugin\Entity\Domain\AuthorizedDomain;
 
 final class SynoliaSyliusAdminOauthExtension extends AbstractResourceExtension implements PrependExtensionInterface
 {
@@ -20,12 +21,20 @@ final class SynoliaSyliusAdminOauthExtension extends AbstractResourceExtension i
      */
     public function load(array $configs, ContainerBuilder $container): void
     {
+        $config = $this->processConfiguration(new Configuration(), $configs);
+        $this->registerResources(
+            'synolia_admin_oauth',
+            $config['driver'],
+            $config['resources'],
+            $container
+        );
         $loader = new YamlFileLoader($container, new FileLocator(\dirname(__DIR__, 2) . '/config'));
         $loader->load('services.yaml');
     }
 
     public function prepend(ContainerBuilder $container): void
     {
+        $container->setParameter('synolia_admin_oauth.model.authorized_domain.class', AuthorizedDomain::class);
         $this->prependDoctrineMigrations($container);
     }
 
