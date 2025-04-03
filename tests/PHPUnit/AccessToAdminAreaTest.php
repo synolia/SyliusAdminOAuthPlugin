@@ -34,7 +34,7 @@ final class AccessToAdminAreaTest extends WebTestCase
         $this->client->request('GET', '/admin/');
 
         self::assertResponseIsSuccessful();
-        self::assertPageTitleContains('Dashboard | Sylius');
+        self::assertPageTitleContains('Dashboard Sylius');
     }
 
     public function testAccessOAuthConfigPageInAdmin(): void
