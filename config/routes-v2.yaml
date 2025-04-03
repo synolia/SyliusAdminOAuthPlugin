@@ -1,0 +1,14 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: Synolia\SyliusAdminOauthPlugin\Controller
+    type: attribute
+    
+synolia_admin_oauth_authorized_domain:
+    resource: |
+        alias: synolia_admin_oauth.authorized_domain
+        section: admin
+        templates: "@SyliusAdmin\\shared\\crud"
+        redirect: index
+        grid: synolia_admin_oauth_authorized_domain
+    type: sylius.resource
