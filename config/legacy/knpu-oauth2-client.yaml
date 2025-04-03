@@ -1,0 +1,14 @@
+knpu_oauth2_client:
+    clients:
+        google_admin:
+            type: google
+            client_id: '%env(default::SYNOLIA_ADMIN_OAUTH_GOOGLE_CLIENT_ID)%'
+            client_secret: '%env(default::SYNOLIA_ADMIN_OAUTH_GOOGLE_CLIENT_SECRET)%'
+            redirect_route: 'connect_admin_google_check'
+            redirect_params: {}
+        azure_admin:
+            type: azure
+            client_id: '%env(default::SYNOLIA_ADMIN_OAUTH_MICROSOFT_CLIENT_ID)%'
+            client_secret: '%env(default::SYNOLIA_ADMIN_OAUTH_MICROSOFT_CLIENT_SECRET)%'
+            redirect_route: 'connect_admin_microsoft_check'
+            redirect_params: {}

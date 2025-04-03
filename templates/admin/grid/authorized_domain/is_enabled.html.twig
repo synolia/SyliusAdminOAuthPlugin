@@ -1,0 +1,7 @@
+{% set value = 'synolia.sylius_admin_oauth.ui.' ~ (data is same as true ? 'yes' : 'no') %}
+
+{% if options.vars.labels is defined %}
+    {% include [(options.vars.labels ~ '/' ~ data ~ '.html.twig'), '@SyliusUi/label/default.html.twig'] with {'value': value} %}
+{% else %}
+    {% include '@SyliusUi/label/default.html.twig' with {'value': value} %}
+{% endif %}
