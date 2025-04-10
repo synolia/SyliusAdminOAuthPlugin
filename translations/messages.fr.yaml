@@ -1,29 +1,29 @@
-sylius:
-    oauth_authentication:
-        no_configured_domain: Aucun domaine configuré pour la connexion Oauth
-        domain_error: Impossible de se connecter, merci de réessayer.
-    google_authentication:
-        login_button: Connexion avec votre compte Google
-        domain_error: Impossible de se connecter, merci de réessayer.
-        authentication_failure: La connexion a échouée, veuillez réessayer.
-    ui:
-        authorized_domains:
-            menu_label: Domaines Oauth autorisés
-        true_label: oui
-        false_label: non
-        is_enabled: Activé
-        admin:
-            menu:
-                oauth_submenu_label: Domaines Oauth autorisés
+synolia:
+    sylius_admin_oauth:
+        oauth_authentication:
+            no_configured_domain: Aucun domaine configuré pour la connexion Oauth
+            domain_error: Impossible de se connecter, merci de réessayer.
+        google_authentication:
+            login_button: Connexion avec votre compte Google
+            domain_error: Impossible de se connecter, merci de réessayer.
+            authentication_failure: La connexion Google a échouée, veuillez réessayer.
+        microsoft_authentication:
+            authentication_failure: La connexion Microsoft a échouée, veuillez réessayer.
+        ui:
+            yes: Oui
+            no: Non
+            is_enabled: Activé
+            admin:
+                menu:
+                    oauth_submenu_label: Domaines Oauth autorisés
+            authorized_domains:
+                menu_label: Domaines Oauth
+                title: Domaines Oauth autorisés
+                subheader: Gestion des domaines de connexion Oauth
         authentication:
             admin:
                 microsoft_login_button_label: Se connecter avec Microsoft
-
-app.ui.authorized_domains_title: Domaines Oauth autorisés
-app.ui.authorized_domains.menu_label: Domaines Oauth
-app.ui.authorized_domains_subheader: Gestion des domaines de connexion Oauth
-app.ui.new_authorized_domain: Nouveau domaine de connexion Oauth
-
-app.form.authorized_domains:
-    name: Nom
-    authorize: Autorisé
+        form:
+            authorized_domains:
+                name: Nom
+                authorize: Autorisé

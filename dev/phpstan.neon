@@ -9,6 +9,7 @@ parameters:
         - ../vendor/autoload.php
     excludePaths:
         - '../src/DependencyInjection/Configuration.php'
+        - '../src/DependencyInjection/SynoliaSyliusAdminOauthExtension.php'
         - '../src/Factory/AdminUserFactory.php'
     ignoreErrors:
         - identifier: missingType.iterableValue

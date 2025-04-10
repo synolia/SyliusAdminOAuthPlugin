@@ -31,20 +31,11 @@ knpu_oauth2_client:
             redirect_route: 'connect_admin_microsoft_check'
             redirect_params: {}
 
-#TODO: a faire dans le plugin
-sylius_resource:
-    resources:
-        app.authorized_domain:
-            classes:
-                model: Synolia\SyliusAdminOauthPlugin\Entity\Domain\AuthorizedDomain
-                repository: Synolia\SyliusAdminOauthPlugin\Repository\AuthorizedDomainRepository
-                form: Synolia\SyliusAdminOauthPlugin\Form\Type\AuthorizedDomainType
-
 winzou_state_machine:
-    app_authorized_domain:
-        class: "%app.model.authorized_domain.class%"
+    synolia_admin_oauth_authorized_domain:
+        class: "%synolia_admin_oauth.model.authorized_domain.class%"
         property_path: isEnabled
-        graph: app_authorized_domain
+        graph: synolia_admin_oauth_authorized_domain
         state_machine_class: "%sylius.state_machine.class%"
         states:
             new: ~
@@ -55,10 +46,10 @@ winzou_state_machine:
                 to: enabled
 sylius_grid:
     grids:
-        app_admin_authorized_domain:
+        synolia_admin_oauth_authorized_domain:
             driver:
                 options:
-                    class: Synolia\SyliusAdminOauthPlugin\Entity\Domain\AuthorizedDomain
+                    class: "%synolia_admin_oauth.model.authorized_domain.class%"
             sorting:
                 name: asc
                 isEnabled: asc

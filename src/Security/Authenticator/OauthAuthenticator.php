@@ -80,9 +80,9 @@ final class OauthAuthenticator extends OAuth2Authenticator
             new UserBadge($accessToken->getToken(), function () use ($user) {
                 Assert::isInstanceOf($this->oauthClient, OauthClient::class);
                 $domains = $this->authorizedDomainRepository->findBy(['isEnabled' => true]);
-                // If there's no domains, login with plugin is disabled...
+                // If there are no domains, login with plugin is disabled...
                 if (0 === \count($domains)) {
-                    $translatedMessage = $this->translator->trans('sylius.oauth_authentication.no_configured_domain');
+                    $translatedMessage = $this->translator->trans('synolia.sylius_admin_oauth.oauth_authentication.no_configured_domain');
                     throw new AuthenticationException($translatedMessage);
                 }
                 // ...else connect compared to authorized domains
@@ -91,7 +91,7 @@ final class OauthAuthenticator extends OAuth2Authenticator
                         return $this->createOauthUserIfDomainCorrespond($user, $domain);
                     }
                 }
-                $translatedMessage = $this->translator->trans('sylius.oauth_authentication.domain_error');
+                $translatedMessage = $this->translator->trans('synolia.sylius_admin_oauth.oauth_authentication.domain_error');
                 throw new AuthenticationException($translatedMessage);
             })
         );

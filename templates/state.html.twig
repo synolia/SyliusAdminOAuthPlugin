@@ -1,10 +1,4 @@
-{% if data == 1 %}
-    {% set data = 'true_label' %}
-{% else %}
-    {% set data = 'false_label' %}
-{% endif %}
-
-{% set value = 'sylius.ui.' ~ data %}
+{% set value = 'synolia.sylius_admin_oauth.ui.' ~ (data is same as true ? 'yes' : 'no') %}
 
 {% if options.vars.labels is defined %}
     {% include [(options.vars.labels ~ '/' ~ data ~ '.html.twig'), '@SyliusUi/Label/_default.html.twig'] with {'value': value} %}

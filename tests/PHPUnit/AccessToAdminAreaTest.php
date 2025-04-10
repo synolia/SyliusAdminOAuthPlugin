@@ -41,7 +41,7 @@ final class AccessToAdminAreaTest extends WebTestCase
     {
         /** @var UrlGeneratorInterface $urlGenerator */
         $urlGenerator = self::getContainer()->get(UrlGeneratorInterface::class);
-        $url = $urlGenerator->generate('app_admin_authorized_domain_index');
+        $url = $urlGenerator->generate('synolia_admin_oauth_admin_authorized_domain_index');
 
         $this->adminLogin();
         $this->client->request('GET', $url);
