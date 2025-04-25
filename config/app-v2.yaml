@@ -1,5 +1,0 @@
-imports:
-    - { resource: "legacy/knpu-oauth2-client.yaml" }
-    - { resource: "legacy/twig.yaml" }
-    - { resource: "grid/authorized-domain.yaml" }
-    - { resource: "twig_hooks/*.yaml" }
