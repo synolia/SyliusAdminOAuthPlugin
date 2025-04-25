@@ -20,7 +20,7 @@ in `install/Application/.env.local` and/or `install/Application/.env.test.local`
 $ make install -e SYLIUS_VERSION=XX SYMFONY_VERSION=YY PHP_VERSION=ZZ
 ```
 
-Default values : XX=1.12.0 and YY=6.3 and ZZ=8.2
+Default values : XX=2.0.0 and YY=7.2 and ZZ=8.2
 
 :information_source: To reset (drop database and delete files) test environment:
 ```bash

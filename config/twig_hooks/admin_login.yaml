@@ -1,0 +1,28 @@
+sylius_twig_hooks:
+    hooks:
+        'sylius_admin.base#stylesheets':
+            stylesoauth:
+                template: '@SynoliaSyliusAdminOauthPlugin/_styles.html.twig'
+                priority: 0
+        'sylius_admin.security.login.page.content.form':
+            alerts:
+                template: '@SynoliaSyliusAdminOauthPlugin/alerts.html.twig'
+                priority: 600
+            google_oauth_button:
+                template: '@SynoliaSyliusAdminOauthPlugin/google_auth_button.html.twig'
+                priority: -100
+            microsoft_oauth_button:
+                template: '@SynoliaSyliusAdminOauthPlugin/microsoft_auth_button.html.twig'
+                priority: -100
+        'sylius_admin.authorized_domain.index.content.header':
+            breadcrumbs:
+                template: '@SyliusAdmin/shared/crud/index/content/header/breadcrumbs.html.twig'
+                context:
+                    title: synolia.sylius_admin_oauth.ui.authorized_domains.menu_label
+        'sylius_admin.authorized_domain.index.content.header.title_block':
+            title:
+                template: '@SyliusAdmin/shared/crud/common/content/header/title_block/title.html.twig'
+                configuration:
+                    title: synolia.sylius_admin_oauth.ui.authorized_domains.title
+                    subheader: synolia.sylius_admin_oauth.ui.authorized_domains.subheader
+                    icon: tabler:stack
