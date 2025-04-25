@@ -1,0 +1,3 @@
+imports:
+    - { resource: "legacy/*.yaml" }
+    - { resource: "ui/*.yaml" }

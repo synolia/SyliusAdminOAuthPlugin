@@ -61,14 +61,14 @@
 4. Create a config/routes/synolia_oauth.yaml to configure plugin's routes and to prefix them with 'admin':
    ```yaml
     synolia_oauth:
-        resource: '@SynoliaSyliusAdminOauthPlugin/config/routes[-v2].yaml'
+        resource: '@SynoliaSyliusAdminOauthPlugin/config/routes[-legacy].yaml'
         prefix: '/%sylius_admin.path_name%'
    ```
 5. Create a config/packages/synolia_oauth_config.yaml to import all required configs 
    depending on which sylius version you use:
     ```yaml
     imports:
-      - { resource: "@SynoliaSyliusAdminOauthPlugin/config/app[-v2].yaml" }
+      - { resource: "@SynoliaSyliusAdminOauthPlugin/config/app[-legacy].yaml" }
     ```
 
 6. Add this trait to your App\Entity\User\AdminUser.php

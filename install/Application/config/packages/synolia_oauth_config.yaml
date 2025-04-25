@@ -1,2 +1,2 @@
 imports:
-    - { resource: "@SynoliaSyliusAdminOauthPlugin/config/app-v2.yaml" }
+    - { resource: "@SynoliaSyliusAdminOauthPlugin/config/app.yaml" }
