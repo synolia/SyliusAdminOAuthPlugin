@@ -23,10 +23,10 @@
 
 ## Requirements
 
-|        | Version |
-|:-------|:--------|
-| PHP    | ^8.2    |
-| Sylius | ^1.12   |
+|        | Version       |
+|:-------|:--------------|
+| PHP    | ^8.2          |
+| Sylius | ^1.12 or ^2.0 |
 
 ## Installation
 
@@ -45,7 +45,6 @@
 3. In your security.yaml, add the OAuth authenticator in your admin firewall and put access_control paths you need depending on wich provider you use. **They must be on top of the others** :
     ```yaml
     security:
-      enable_authenticator_manager: true
       firewalls:
         admin:
             custom_authenticators:
@@ -62,13 +61,14 @@
 4. Create a config/routes/synolia_oauth.yaml to configure plugin's routes and to prefix them with 'admin':
    ```yaml
     synolia_oauth:
-        resource: '@SynoliaSyliusAdminOauthPlugin/config/routes.yaml'
+        resource: '@SynoliaSyliusAdminOauthPlugin/config/routes[-legacy].yaml'
         prefix: '/%sylius_admin.path_name%'
    ```
-5. Create a config/packages/synolia_oauth_config.yaml to import all required configs :
+5. Create a config/packages/synolia_oauth_config.yaml to import all required configs 
+   depending on which sylius version you use:
     ```yaml
     imports:
-      - { resource: "@SynoliaSyliusAdminOauthPlugin/config/app.yaml" }
+      - { resource: "@SynoliaSyliusAdminOauthPlugin/config/app[-legacy].yaml" }
     ```
 
 6. Add this trait to your App\Entity\User\AdminUser.php

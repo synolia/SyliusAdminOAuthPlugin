@@ -1,0 +1,35 @@
+sylius_grid:
+    grids:
+        synolia_admin_oauth_authorized_domain:
+            driver:
+                options:
+                    class: "%synolia_admin_oauth.model.authorized_domain.class%"
+            sorting:
+                name: asc
+                isEnabled: asc
+            fields:
+                name:
+                    type: string
+                    label: sylius.ui.name
+                    sortable: ~
+                isEnabled:
+                    type: twig
+                    label: sylius.ui.is_enabled
+                    options:
+                        template: "@SynoliaSyliusAdminOauthPlugin/admin/grid/authorized_domain/is_enabled.html.twig"
+                    sortable: ~
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete
+                bulk:
+                    delete:
+                        type: delete
+            filters:
+                name:
+                    type: string
